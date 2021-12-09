@@ -154,7 +154,7 @@ export default {
 </script>
 <style scoped>
 .contain {
-  background-color: #010411;
+  background-color: #010412;
   height: 100vh;
 }
 .yellow {
