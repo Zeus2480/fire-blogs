@@ -121,6 +121,10 @@ export default {
   methods: {
     validation() {
       this.formIsvalid = true;
+      this.nameIsValid=true;
+      this.emailIsValid=true;
+      this.passwordIsValid=true;
+      this.confirmPasswordIsValid=true;
       if (this.name === "") {
         this.nameIsValid = false;
         this.formIsvalid = false;
@@ -154,7 +158,7 @@ export default {
 </script>
 <style scoped>
 .contain {
-  background-color: #010412;
+  background-color: #010411;
   height: 100vh;
 }
 .yellow {
