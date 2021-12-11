@@ -1,8 +1,8 @@
 <template>
     <div class="flex justify-end mr-20 mt-10">
     <div class="flex border-2 rounded">
-        <input type="text" class="px-4 py-2 w-80" placeholder="Search...">
-        <button class="flex items-center justify-center px-4 border-l">
+        <input type="text" class="px-4 py-2 w-80" placeholder="Search..." v-model="searchQuery">
+        <button class="flex items-center justify-center px-4 border-l" @click="search">
             <svg class="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
@@ -12,3 +12,24 @@
     </div>
 </div>
 </template>
+<script>
+import axios from 'axios'
+export default {
+    data(){
+        return{
+            searchQuery:''
+        }
+    },
+    methods:{
+        search(){
+            axios.get('http://127.0.0.1:8000/api/search',{
+                query:this.searchQuery
+            }).then(res=>{
+                console.log(res);
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
+    }
+}
+</script>

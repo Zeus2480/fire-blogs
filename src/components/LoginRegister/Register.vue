@@ -103,6 +103,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -116,6 +117,7 @@ export default {
       confirmPasswordIsValid: true,
       passwordSame: true,
       formIsvalid: true,
+      errorArray:[]
     };
   },
   methods: {
@@ -124,7 +126,7 @@ export default {
       this.nameIsValid=true;
       this.emailIsValid=true;
       this.passwordIsValid=true;
-      this.confirmPasswordIsValid=true;
+      this.confirmPasswordIsValid=true; 
       if (this.name === "") {
         this.nameIsValid = false;
         this.formIsvalid = false;
@@ -149,8 +151,21 @@ export default {
     register() {
       this.validation();
       if (this.formIsvalid) {
-        console.log("valid");
-        this.$router.push("/login");
+        const data={
+          name:this.name,
+          email:this.email,
+          password:this.password,
+          password_confirmation:this.confirmPassword
+        }
+        
+        console.log(data);
+        axios.post('http://127.0.0.1:8000/api/register',data).then(res=>{
+          localStorage.setItem('token',res.data.access_token);
+          this.$router.push('/home')
+        }).catch(err=>{
+          console.log(err);
+        })
+        // this.$router.push("/login");
       }
     },
   },

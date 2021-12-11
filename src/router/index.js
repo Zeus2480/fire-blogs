@@ -4,13 +4,17 @@ import Home from '../views/Home.vue'
 import Blogs from '../components/Allblogs/Blogs.vue'
 import Login from '../components/LoginRegister/Login.vue'
 import Register from '../components/LoginRegister/Register.vue'
-import CreateBlog from '../components/CreateBlog/CreateBlog.vue'
+import CreateBlog from '../components/CreateBlog/CreateBlog3.vue'
 import ViewPost from '../components/ViewPost/ViewPost.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path:'/',
+    redirect:'/home'
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -21,7 +25,8 @@ const routes = [
   },
   {
     path: '/post/:id',
-    component: ViewPost
+    component: ViewPost,
+    props:true
   },
   {
     path:'/login',

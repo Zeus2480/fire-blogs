@@ -8,12 +8,22 @@
       <ul class="flex flex-col sm:flex-row">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/post">Blogs</router-link></li>
-        <li><router-link to="/login">Login/Register</router-link> </li>
+        <li v-show="!userLoggedIn"><router-link to="/login">Login/Register</router-link> </li>
+        <li v-show="userLoggedIn"><button><drop-down :userName="userName" ></drop-down></button></li>
+        
       </ul>
     </div>
   </nav>
 </template>
-
+<script>
+import dropDown from './DropDownMenu.vue'
+export default {
+  props:['userName','userLoggedIn'],
+  components:{
+    dropDown
+  }
+}
+</script>
 <style scoped>
 .sticky {
   position: fixed;
@@ -40,7 +50,7 @@
 } */
 .nav-links ul li,
 .nav-links ul li a {
-  margin: 1rem 1rem;
+  margin: 1rem 0.2rem;
   color: aliceblue;    /*   Use tailwind for padding and use less padding for mobile devices*/  
   font-weight: 600;
   letter-spacing: 1.1px;

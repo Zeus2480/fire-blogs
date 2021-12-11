@@ -1,6 +1,5 @@
 <template>
     <div class="card">
-        /*Card1*/
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
           <img
             class="w-full h-60"
@@ -8,11 +7,9 @@
             alt="Sunset in the mountains"
           />
           <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+            <div class="font-bold text-xl mb-2">{{name}}</div>
             <p class="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
+              {{excerpt}}
             </p>
           </div>
           <div class="px-6 pt-4 pb-2">
@@ -29,6 +26,19 @@
               >#winter</span
             >
           </div>
+          <div class="but">
+            <router-link :to="viewPostButton">View this post</router-link>
+          </div>
         </div>
       </div>
 </template>
+<script>
+export default {
+  props:['body','id','name','excerpt','tags'],
+  computed:{
+    viewPostButton(){
+      return `/post/${this.id}`
+    }
+  }
+}
+</script>
