@@ -24,6 +24,7 @@ export default {
     },
     methods:{
         onFileSelected(event){
+            console.log(document.querySelector('#file'))
             this.selectedFile=event.target.files[0]
             console.log(this.selectedFile)
         }

@@ -6,13 +6,13 @@
       </div>
       <div class="image">
         <img
-          src="../../assets/images/pexels-jacub-gomez-1142941.jpg"
+          :src="imageUrl"
           class="rounded-lg px-8 my-10"
           alt=""
         />
       </div>
       <div class="body">
-        <p class="px-10">{{ body }}</p>
+        <p class="px-10 text-left"  v-html="body">  </p>
       </div>
       <div class="buton flex justify-between my-8">
         <div class="like mx-8">
@@ -32,7 +32,7 @@
               v-show="liked"
             />
           </button>
-          <p>{{like}</p>
+          <p>{{ noOfLikes }}</p>
         </div>
         <div class="bookmark mx-8">
           <button @click="bookmark">
@@ -87,12 +87,14 @@ export default {
     return {
       liked: false,
       bookmarked: false,
+      noOfLikes: null,
       body: "",
       excerpt: "",
       name: "",
       comment: "",
       commentIsValid: true,
       showCommentsArray: [],
+      imagePath:''
     };
   },
   props: ["id"],
@@ -103,6 +105,7 @@ export default {
     axios
       .get(`http://127.0.0.1:8000/api/post/${this.id}`)
       .then((res) => {
+        this.imagePath=res.data.image_path
         this.body = res.data.body;
         this.excerpt = res.data.excerpt;
         this.name = res.data.name;
@@ -115,42 +118,82 @@ export default {
       .get("http://127.0.0.1:8000/api/comments")
       .then((res) => {
         this.showCommentsArray = res.data;
-        console.log(res.data);
+        //console.log(res.data);
         //   this.$route.push(`/post/${this.id}`)
       })
       .catch((err) => {
         console.log(err);
       });
-    //likes
-   
+    //no of likes
+    axios
+      .get(`http://127.0.0.1:8000/api/post/${this.id}/counts`)
+      .then((res) => {
+        this.noOfLikes = res.data.like;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //user liked or not
+    axios
+      .get(`http://127.0.0.1:8000/api/liked/${this.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        if (res.data.is_like === 1) {
+          this.liked = true;
+        } else {
+          this.liked = false;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  computed:{
+    imageUrl(){
+      return `http://localhost/fireblogs-api/public/images/${this.imagePath}`
+    }
   },
   methods: {
     bookmark() {
       this.bookmarked = !this.bookmarked;
     },
     like() {
-       axios
-      .post(
-        `http://127.0.0.1:8000/api/post/${this.id}/likes`,
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((res) => {
-          console.log(res.data.like)
-        if(res.data.like===0){
-            this.liked=false
-        }
-        else if(res.data.like===1){
-            this.liked=true
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .post(
+          `http://127.0.0.1:8000/api/post/${this.id}/likes`,
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data.like);
+          if (res.data.like === 0) {
+            this.liked = false;
+            this.noOfLikes--;
+          } else if (res.data.like === 1) {
+            this.liked = true;
+            this.noOfLikes++;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+        //getting no of likes after like function executed
+      // axios
+      //   .get(`http://127.0.0.1:8000/api/post/${this.id}/counts`)
+      //   .then((res) => {
+      //     this.noOfLikes = res.data.like;
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
     postComment() {
       this.commentIsValid = true;
@@ -171,9 +214,8 @@ export default {
           }
         )
         .then((res) => {
-            this.showCommentsArray.push(res.data);
-            this.comment=""
-            
+          this.showCommentsArray.push(res.data);
+          this.comment = "";
         })
         .catch((err) => {
           console.log(err);

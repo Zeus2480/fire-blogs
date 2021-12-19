@@ -10,7 +10,9 @@
             :id="blog.id"
             :name="blog.name"
             :excerpt="blog.excerpt"
-            :tags="blog.tags"></base-cards>
+            :tags="blog.tags"
+            :image='blog.image_path'
+            mypost:false></base-cards>
         </div>
     </div>
     </ul>
@@ -43,6 +45,7 @@ export default {
     axios
       .get("http://127.0.0.1:8000/api/post")
       .then((res) => {
+        console.log(res)
         this.blogsList = res.data;
         console.log(this.blogsList);
       })

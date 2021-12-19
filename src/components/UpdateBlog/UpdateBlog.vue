@@ -1,7 +1,7 @@
 <template>
   <div class="blog-post-creator">
-      <div class="header w-full bg-black">
-      <h1 class="yellow-text text-center text-4xl py-5">Create Blog</h1>
+    <div class="header w-full bg-black">
+      <h1 class="yellow-text text-center text-4xl py-5">Edit Blog</h1>
     </div>
     <div class="post-inputs flex flex-col bg-gray-200">
       <div class="title-input flex justify-center my-4">
@@ -49,30 +49,28 @@ import { VueEditor } from "vue2-editor";
 
 import axios from "axios";
 export default {
+  props: ["title", "content", "excerpt"],
   components: {
     VueEditor,
   },
   data() {
     return {
-      content: "",
-      title: "",
       selectedFile: "",
-      excerpt:'',
-      imageUrl: "",
+
       editorOption: {
         placeholder: "Type your post.....",
         readOnly: true,
         theme: "snow",
       },
-      delta: undefined,
     };
   },
-  watch: {
-    content() {
-      this.delta = this.$refs.myQuillEditor.quill.getContents();
-    },
-  },
+
   methods: {
+    console() {
+      console.log(this.title);
+      console.log(this.content);
+      console.log(this.excerpt);
+    },
     onFileSelected(event) {
       console.log(event);
       // console.log(event.target.files[0]);
@@ -84,22 +82,24 @@ export default {
       formData.append("image", this.selectedFile);
       formData.append("name", this.title);
       formData.append("body", this.content);
-      formData.append("excerpt",this.excerpt);
+      formData.append("excerpt", this.excerpt);
       formData.append("tags", "#test");
       // const data={
       //     title:this.title,
       //     imageUrl:this.imageUrl,
       //     body:this.delta
       // }
-      axios.post(`http://127.0.0.1:8000/api/post/create`, formData, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }).then(res=>{
-          if(res.request.status===200){
-              this.$router.push('/post')
+      axios
+        .post(`http://127.0.0.1:8000/api/post/create`, formData, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          if (res.request.status === 200) {
+            this.$router.push("/post");
           }
-      });
+        });
     },
   },
 };
@@ -112,7 +112,7 @@ export default {
   background-color: #10131d;
   color: #fff700;
 }
-.yellow-text{
-    color: #fff700;
+.yellow-text {
+  color: #fff700;
 }
 </style>

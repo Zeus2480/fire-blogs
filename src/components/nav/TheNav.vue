@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar  sm:block">
+  <nav class="navbar sm:block">
     <div class="nav-image invisible sm:visible">
       <!-- <h1 class="bg-red-500">Hello</h1> -->
       <img src="../../assets/logo/meteor.png" /><a href="#"></a>
@@ -8,21 +8,26 @@
       <ul class="flex flex-col sm:flex-row">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/post">Blogs</router-link></li>
-        <li v-show="!userLoggedIn"><router-link to="/login">Login/Register</router-link> </li>
-        <li v-show="userLoggedIn"><button><drop-down :userName="userName" ></drop-down></button></li>
-        
+        <li v-show="!userLoggedIn">
+          <router-link to="/login">Login/Register</router-link>
+        </li>
+        <li v-show="userLoggedIn">
+          <div class="drop-down">
+            <drop-down :userName="userName"></drop-down>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 <script>
-import dropDown from './DropDownMenu.vue'
+import dropDown from "./DropDownMenu.vue";
 export default {
-  props:['userName','userLoggedIn'],
-  components:{
-    dropDown
-  }
-}
+  props: ["userName", "userLoggedIn"],
+  components: {
+    dropDown,
+  },
+};
 </script>
 <style scoped>
 .sticky {
@@ -39,11 +44,11 @@ export default {
   /* width: 100%; */
 }
 .nav-image img {
-  height: 3.5rem;
-  margin: 0.7rem 0;
+  height: 3rem;
+  margin: 0.5rem 0;
 }
 .nav-links {
-  margin: 0.7rem 0;
+  margin: 0.1rem 0;
 }
 /* .nav-links ul {
   display: flex;
@@ -51,7 +56,7 @@ export default {
 .nav-links ul li,
 .nav-links ul li a {
   margin: 1rem 0.2rem;
-  color: aliceblue;    /*   Use tailwind for padding and use less padding for mobile devices*/  
+  color: aliceblue; /*   Use tailwind for padding and use less padding for mobile devices*/
   font-weight: 600;
   letter-spacing: 1.1px;
   padding: 8px;
@@ -60,7 +65,7 @@ export default {
 .nav-links ul li a:hover {
   color: #fff724;
 }
-.router-link-exact-active{
+.router-link-exact-active {
   border: #fff724 3px solid;
   border-radius: 10px;
 }

@@ -3,7 +3,7 @@
     <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
     <home-page></home-page>
     <recent-posts></recent-posts>
-    <bottom-cards></bottom-cards>
+    <bottom-cards class="py-8"></bottom-cards>
     <the-footer></the-footer>
   </div>
 </template>
@@ -15,7 +15,7 @@ import RecentPosts from '../components/recentpost/RecentPost.vue'
 import BottomCards from '../components/Home/BottomCards.vue'
 import TheFooter from '../components/Footer/TheFooter.vue'
 import axios from 'axios'
-console.log(localStorage.getItem('token'));
+ console.log(localStorage.getItem('token'));
 export default {
   data(){
     return{

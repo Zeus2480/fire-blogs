@@ -6,6 +6,8 @@ import Login from '../components/LoginRegister/Login.vue'
 import Register from '../components/LoginRegister/Register.vue'
 import CreateBlog from '../components/CreateBlog/CreateBlog3.vue'
 import ViewPost from '../components/ViewPost/ViewPost.vue'
+import UserPost from '../components/UserPost/userPost.vue'
+import UpdateBlog from '../components/UpdateBlog/UpdateBlog.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -24,6 +26,10 @@ const routes = [
     component:Blogs
   },
   {
+    path:'/userpost',
+    component:UserPost,
+  },
+  {
     path: '/post/:id',
     component: ViewPost,
     props:true
@@ -35,6 +41,12 @@ const routes = [
   {
     path:'/create',
     component:CreateBlog
+  },
+  {
+    path:'/edit',
+    component:UpdateBlog,
+    name:'edit',
+    props:true
   },
   {
     path:'/register',
