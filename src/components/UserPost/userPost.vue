@@ -1,5 +1,5 @@
 <template>
-  <div class="contain">
+  <div class="contain ">
     <div class="header w-full bg-black">
       <h1 class="yellow-text text-center text-4xl py-5">My Blogs</h1>
     </div>
@@ -15,7 +15,7 @@
       >
         <base-cards
           class="mx-4"
-          v-for="(blog, index) in blogsList"
+          v-for="(blog, index) in userBlogs"
           :key="index"
           :body="blog.body"
           :id="blog.id"
@@ -24,6 +24,7 @@
           :tags="blog.tags"
           :image="blog.image_path"
           mypost="true"
+          @delete-post="deletePost"
         ></base-cards>
       </div>
     </div>
@@ -74,6 +75,19 @@ export default {
       });
     //getting all post
   },
+  methods:{
+    deletePost(id){
+      // console.log(id)
+      // console.log(this.userBlogs[0].id)
+      this.userBlogs=this.userBlogs.filter(value=>value.id!==id)
+      // console.log(this.userBlogs);
+    }
+  },
+  // watch:{
+  //   userBlogs(newValue){
+  //     this.userBlogs=newValue;
+  //   }
+  // }
 };
 </script>
 <style scoped>
@@ -89,4 +103,5 @@ export default {
     padding: 0.5rem .5rem;
     border-radius: 10px;
 }
+
 </style>

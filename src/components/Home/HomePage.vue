@@ -1,6 +1,6 @@
 <template>
   <div class="header grid grid-cols-1 sm:grid-cols-2">
-    <div class="welcome-message">
+    <div class="welcome-message my-auto ">
       <h1 class="typed font-semibold mt-24 mb-16 text-6xl sm:text-8xl">
         Welcome
       </h1>
@@ -30,7 +30,7 @@ export default {
 </script>
 <style scoped>
 .header {
-  height: 90vh;
+  height: 93vh;
   background-color: #010411;
 }
 .typed {

@@ -37,10 +37,10 @@
     </div>
     <vue-editor v-model="content" ref="myQuillEditor" />
     <button
-      @click="submit"
+      @click="update"
       class="border-solid border-2 px-4 py-1 rounded-lg my-4 bg-slate- buttoncolor"
     >
-      Submit
+      Update
     </button>
   </div>
 </template>
@@ -49,7 +49,7 @@ import { VueEditor } from "vue2-editor";
 
 import axios from "axios";
 export default {
-  props: ["title", "content", "excerpt"],
+  props: ["title", "content", "excerpt",'id'],
   components: {
     VueEditor,
   },
@@ -66,18 +66,14 @@ export default {
   },
 
   methods: {
-    console() {
-      console.log(this.title);
-      console.log(this.content);
-      console.log(this.excerpt);
-    },
+   
     onFileSelected(event) {
-      console.log(event);
+      // console.log(event);
       // console.log(event.target.files[0]);
       this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
+      // console.log(this.selectedFile);
     },
-    submit() {
+    update() {
       const formData = new FormData();
       formData.append("image", this.selectedFile);
       formData.append("name", this.title);
@@ -90,14 +86,14 @@ export default {
       //     body:this.delta
       // }
       axios
-        .post(`http://127.0.0.1:8000/api/post/create`, formData, {
+        .post(`http://127.0.0.1:8000/api/post/${this.id}/update?name=updated&excerpt=updated&body=updated&image_path&tags`, formData, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((res) => {
           if (res.request.status === 200) {
-            this.$router.push("/post");
+            this.$router.push("/userpost");
           }
         });
     },

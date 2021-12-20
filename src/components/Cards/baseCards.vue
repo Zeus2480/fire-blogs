@@ -1,40 +1,28 @@
 <template>
     <div class="card">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg mainn">
+        <div class="max-w-sm rounded overflow-hidden height shadow-lg mainn flex flex-col justify-evenly">
           <div class="img">
             <img
-            class="w-full h-60"
+            class="w-full h-60 bg-cover bg-center"
             :src="imageUrl"
             alt="Sunset in the mountains"
           />
             </div>
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{name}}</div>
-            <p class="text-gray-700 text-base">
+            <p class="text-gray-700 text-base paragraph-contain overflow-hidden">
               {{excerpt}}
             </p>
           </div>
-          <div class="px-6 pt-4 pb-2">
-            <span
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#photography</span
-            >
-            <span
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#travel</span
-            >
-            <span
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#winter</span
-            >
-          </div>
+         
           <div class="but my-4 flex justify-center">
             <router-link class="mx-2 btn" :to="viewPostButton">View</router-link>
              <button v-show="mypost" @click="deletePost" class="mx-3 btn">Delete</button>
              <router-link :to="{ name:'edit',params:{
                title:name,
                content:body,
-               excerpt:excerpt
+               excerpt:excerpt,
+               id:id
              }}" title="tdsitle" content="codasdntent" excerpt="exdssadcerptt" v-show="mypost" class="mx-2 btn">Edit</router-link>
           </div>
          
@@ -63,7 +51,8 @@ export default {
   methods:{
     deletePost(){
       axios.delete(`http://127.0.0.1:8000/api/post/${this.id}/delete`).then(res=>{
-        console.log(res)
+        console.log(res);
+        this.$emit('delete-post',this.id)
       }).catch(err=>{
         console.log(err)
       })
@@ -81,6 +70,12 @@ export default {
 }
 .btn:hover{
   background-color: rgb(39, 39, 39);
+}
+.height{
+  height: 28rem;
+}
+.paragraph-contain{
+  max-height: 4.25rem;
 }
 </style>
 

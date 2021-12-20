@@ -1,83 +1,84 @@
 <template>
-  <div class="contain flex">
+<div class="bg-color">
+  <div class="contain my-8 flex">
     <div class="center-container w-full max-w-xl m-auto shadow-2xl">
       <div class="heading">
         <h1 class="font-bold text-6xl my-8">{{ name }}</h1>
       </div>
-      <div class="image">
-        <img
-          :src="imageUrl"
-          class="rounded-lg px-8 my-10"
-          alt=""
-        />
+      <div class="image rounded-lg">
+        <img :src="imageUrl" class="rounded-lg px-8 my-10" alt="" />
       </div>
-      <div class="body">
-        <p class="px-10 text-left"  v-html="body">  </p>
+      <div class="body my-6">
+        <p class="px-10 text-left" v-html="body"></p>
       </div>
-      <div class="buton flex justify-between my-8">
-        <div class="like mx-8">
-          <button @click="like">
-            <img
-              src="../../assets/logo/love.png"
-              alt=""
-              class="h-6"
-              v-show="!liked"
-            />
-          </button>
-          <button @click="like">
-            <img
-              src="../../assets/logo/heart.png"
-              alt=""
-              class="h-6"
-              v-show="liked"
-            />
-          </button>
-          <p>{{ noOfLikes }}</p>
-        </div>
-        <div class="bookmark mx-8">
-          <button @click="bookmark">
-            <img
-              src="../../assets/logo/bookmark.png"
-              alt=""
-              class="h-6"
-              v-show="!bookmarked"
-            />
-          </button>
-          <button @click="bookmark">
-            <img
-              src="../../assets/logo/bookmark (1).png"
-              alt=""
-              class="h-6"
-              v-show="bookmarked"
-            />
-          </button>
-        </div>
-      </div>
-      <div class="comments">
-        <div class="add-comment flex justify-around">
-          <textarea
-            name="comment"
-            id="comment"
-            cols="30"
-            rows="3"
-            placeholder="Type Your Comment"
-            class="border-solid border-2 border-zinc-900"
-            v-model.trim="comment"
-          ></textarea>
-          <div class="but flrx justify-center align-middle">
-            <button @click="postComment">Comment</button>
+      <div class="bg-color bg-gray-200 py-4">
+        <div class="buton flex justify-between my-8">
+          <div class="like mx-8">
+            <button @click="like">
+              <img
+                src="../../assets/logo/love.png"
+                alt=""
+                class="h-6"
+                v-show="!liked"
+              />
+            </button>
+            <button @click="like">
+              <img
+                src="../../assets/logo/heart.png"
+                alt=""
+                class="h-6"
+                v-show="liked"
+              />
+            </button>
+            <p>{{ noOfLikes }}</p>
+          </div>
+          <div class="bookmark mx-8">
+            <button @click="bookmark">
+              <img
+                src="../../assets/logo/bookmark.png"
+                alt=""
+                class="h-6"
+                v-show="!bookmarked"
+              />
+            </button>
+            <button @click="bookmark">
+              <img
+                src="../../assets/logo/bookmark (1).png"
+                alt=""
+                class="h-6"
+                v-show="bookmarked"
+              />
+            </button>
           </div>
         </div>
-        <div class="show-comment">
-          <show-comment
-            v-for="(comment, index) in showCommentsArray"
-            :key="index"
-            :body="comment.body"
-          ></show-comment>
+        <div class="comments">
+          <div class="add-comment flex justify-around">
+            <textarea
+              name="comment"
+              id="comment"
+              cols="30"
+              rows="3"
+              placeholder="Type Your Comment"
+              class="border-solid border-2 border-zinc-900"
+              v-model.trim="comment"
+            ></textarea>
+            <div class="but flrx justify-center align-middle">
+              <button @click="postComment">Comment</button>
+            </div>
+          </div>
+          <div class="show-comment">
+            <show-comment
+              v-for="(comment, index) in showCommentsArray"
+              :key="index"
+              :body="comment.body"
+            ></show-comment>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+</div>
 </template>
 <script>
 import axios from "axios";
@@ -94,7 +95,7 @@ export default {
       comment: "",
       commentIsValid: true,
       showCommentsArray: [],
-      imagePath:''
+      imagePath: "",
     };
   },
   props: ["id"],
@@ -102,10 +103,11 @@ export default {
     ShowComment,
   },
   created() {
+    console.log(this.id);
     axios
       .get(`http://127.0.0.1:8000/api/post/${this.id}`)
       .then((res) => {
-        this.imagePath=res.data.image_path
+        this.imagePath = res.data.image_path;
         this.body = res.data.body;
         this.excerpt = res.data.excerpt;
         this.name = res.data.name;
@@ -117,7 +119,10 @@ export default {
     axios
       .get("http://127.0.0.1:8000/api/comments")
       .then((res) => {
-        this.showCommentsArray = res.data;
+        // console.log(res)
+        this.showCommentsArray = res.data.filter(
+          (data) => data.post_id == this.id
+        );
         //console.log(res.data);
         //   this.$route.push(`/post/${this.id}`)
       })
@@ -150,16 +155,48 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    //bookmarked or not
+    axios
+      .get(`http://127.0.0.1:8000/api/check/bookmark?post_id=${this.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+         if (res.data.is_bookmark === 1) {
+          this.bookmarked = true;
+        } else {
+          this.bookmarked = false;
+        }
+      });
   },
-  computed:{
-    imageUrl(){
-      return `http://localhost/fireblogs-api/public/images/${this.imagePath}`
-    }
+  computed: {
+    imageUrl() {
+      return `http://localhost/fireblogs-api/public/images/${this.imagePath}`;
+    },
   },
   methods: {
     bookmark() {
+      axios
+        .post(
+          `http://127.0.0.1:8000/api/post/${this.id}/bookmark?post_id=${this.id}`,
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.is_bookmark === 0) {
+            this.bookmarked = false;
+          } else if (res.data.is_bookmark === 1) {
+            this.bookmarked = true;
+          }
+        });
       this.bookmarked = !this.bookmarked;
     },
+
     like() {
       axios
         .post(
@@ -185,7 +222,7 @@ export default {
           console.log(err);
         });
 
-        //getting no of likes after like function executed
+      //getting no of likes after like function executed
       // axios
       //   .get(`http://127.0.0.1:8000/api/post/${this.id}/counts`)
       //   .then((res) => {
@@ -224,4 +261,9 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.add-comment {
+  margin-bottom: 2rem;
+}
+
+</style>

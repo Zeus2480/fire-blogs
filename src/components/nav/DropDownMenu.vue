@@ -10,6 +10,7 @@
         <li class="font-normal tracking-normal">Hey {{ userName }}</li>
         <li><router-link to="/create" class="font-normal tracking-normal">Create Post</router-link></li>
         <li><router-link to="/userpost" class="font-normal tracking-normal">My Post's</router-link></li>
+        <li><router-link to="/bookmarked" class="font-normal tracking-normal">Favourites</router-link></li>
         <li><button @click="logOut">Log Out</button></li>
 
       </ul>

@@ -8,6 +8,8 @@ import CreateBlog from '../components/CreateBlog/CreateBlog3.vue'
 import ViewPost from '../components/ViewPost/ViewPost.vue'
 import UserPost from '../components/UserPost/userPost.vue'
 import UpdateBlog from '../components/UpdateBlog/UpdateBlog.vue'
+import SearchPage from '../components/Search/SearchPage.vue'
+import Bookmarked from '../components/Bookmarked/Bookmarked.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,7 +22,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  
+  {
+    // name:'search',
+    path:'/search',
+    components:SearchPage,
+    // props:true
+  },
   {
     path:'/post',
     component:Blogs
@@ -28,6 +35,10 @@ const routes = [
   {
     path:'/userpost',
     component:UserPost,
+  },
+  {
+    path:'/bookmarked',
+    component:Bookmarked
   },
   {
     path: '/post/:id',
