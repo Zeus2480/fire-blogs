@@ -6,7 +6,7 @@
 
         <div class="mb-4">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            class="block text-gray-700 text-sm font-semibold  mb-2 text-left"
             for="username"
           >
             Name
@@ -24,7 +24,7 @@
         </div>
         <div class="mb-4">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            class="block text-gray-700 text-sm text-left font-semibold mb-2"
             for="useremail"
           >
             Email
@@ -42,7 +42,7 @@
         </div>
         <div class="mb-3">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            class="block text-gray-700 text-left text-sm font-semibold mb-2"
             for="password"
           >
             Password
@@ -64,7 +64,7 @@
         </div>
         <div class="mb-6">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            class="block text-gray-700  text-left text-sm font-semibold mb-2"
             for="confirmpassword"
           >
             Confirm Password

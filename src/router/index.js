@@ -23,10 +23,10 @@ const routes = [
     component: Home
   },
   {
-    // name:'search',
+    name:'search',
     path:'/search',
-    components:SearchPage,
-    // props:true
+    component:SearchPage,
+    props:true
   },
   {
     path:'/post',

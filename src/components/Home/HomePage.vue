@@ -9,7 +9,7 @@
         quaerat quasi ad officia molestias rerum! Necessitatibus nemo adipisci
         et.
       </p>
-      <button @click="scroll" class="btn m-12" href=".recent-posts">Explore <span class="arrow">&darr;</span></button>
+      <button  class="btn m-12" href=".recent-posts">Explore <span class="arrow">&darr;</span></button>
     </div>
     <div class="image">
       <img src="../../assets/images/pexels-lisa-851213.jpg" alt="" />
@@ -19,12 +19,7 @@
 <script>
 export default {
   methods:{
-    scroll() {
-      console.log("scroll")
-      const element =this.$refs.someName;
-      element.scrollIntoView({ behavior: 'smooth' });
-      console.log("scroll")
-    }
+    
   }
 }
 </script>

@@ -5,13 +5,13 @@
         <h1 class="font-bold mb-6 mt-0 text-2xl">Login</h1>
         <div class="mb-4">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            class="block text-gray-700 text-sm text-left font-bold mb-2"
             for="username"
           >
             Email
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight  focus:outline-none focus:shadow-outline"
             id="username"
             type="email"
             placeholder="Email"
@@ -20,7 +20,7 @@
         </div>
         <div class="mb-6">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            class="block text-gray-700 text-sm font-bold mb-2 text-left"
             for="password"
           >
             Password

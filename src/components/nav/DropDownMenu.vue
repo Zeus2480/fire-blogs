@@ -8,7 +8,7 @@
     <div class="menu bg-white border-2 w-36 rounded-3xl" v-show="showDropDown">
       <ul class="p-2">
         <li class="font-normal tracking-normal">Hey {{ userName }}</li>
-        <li><router-link to="/create" class="font-normal tracking-normal">Create Post</router-link></li>
+        <li><router-link to="/create" class="font-normal tracking-normal">Write Blog</router-link></li>
         <li><router-link to="/userpost" class="font-normal tracking-normal">My Post's</router-link></li>
         <li><router-link to="/bookmarked" class="font-normal tracking-normal">Favourites</router-link></li>
         <li><button @click="logOut">Log Out</button></li>
@@ -41,7 +41,8 @@ export default {
           },
         }
       ).then(res=>{
-          console.log(res)
+          console.log(res);
+          localStorage.removeItem("token");
           this.$router.push('/login')
       }).catch(err=>{
           console.log(err)
