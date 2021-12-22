@@ -159,7 +159,7 @@ export default {
         }
         
         console.log(data);
-        axios.post('http://127.0.0.1:8000/api/register',data).then(res=>{
+        axios.post('/register',data).then(res=>{
           localStorage.setItem('token',res.data.access_token);
           this.$router.push('/home')
         }).catch(err=>{

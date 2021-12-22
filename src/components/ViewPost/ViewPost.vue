@@ -107,7 +107,7 @@ export default {
    created() {
       // console.log(this.id);
       axios
-         .get(`http://127.0.0.1:8000/api/post/${this.id}`)
+         .get(`/post/${this.id}`)
          .then((res) => {
             this.imagePath = res.data.image_path;
             this.body = res.data.body;
@@ -119,7 +119,7 @@ export default {
          });
       //Get all comments
       axios
-         .get("http://127.0.0.1:8000/api/comments")
+         .get("/comments")
          .then((res) => {
             // console.log(res)
             this.showCommentsArray = res.data.filter(
@@ -133,7 +133,7 @@ export default {
          });
       //no of likes
       axios
-         .get(`http://127.0.0.1:8000/api/post/${this.id}/counts`)
+         .get(`/post/${this.id}/counts`)
          .then((res) => {
             this.noOfLikes = res.data.like;
          })
@@ -142,7 +142,7 @@ export default {
          });
       //user liked or not
       axios
-         .get(`http://127.0.0.1:8000/api/liked/${this.id}`, {
+         .get(`/liked/${this.id}`, {
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -159,7 +159,7 @@ export default {
          });
       //bookmarked or not
       axios
-         .get(`http://127.0.0.1:8000/api/check/bookmark?post_id=${this.id}`, {
+         .get(`/check/bookmark?post_id=${this.id}`, {
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -181,7 +181,7 @@ export default {
       bookmark() {
          axios
             .post(
-               `http://127.0.0.1:8000/api/post/${this.id}/bookmark?post_id=${this.id}`,
+               `/post/${this.id}/bookmark?post_id=${this.id}`,
                {},
                {
                   headers: {
@@ -207,7 +207,7 @@ export default {
       like() {
          axios
             .post(
-               `http://127.0.0.1:8000/api/post/${this.id}/likes`,
+               `/post/${this.id}/likes`,
                {},
                {
                   headers: {
@@ -250,7 +250,7 @@ export default {
          }
          axios
             .post(
-               `http://127.0.0.1:8000/api/post/${this.id}/comments`,
+               `/post/${this.id}/comments`,
                {
                   body: this.comment,
                },

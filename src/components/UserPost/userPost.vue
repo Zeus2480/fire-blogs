@@ -1,54 +1,65 @@
 <template>
-  <div class="contain ">
-    <div class="header w-full bg-black">
-      <h1 class="yellow-text text-center text-4xl py-5">My Blogs</h1>
-    </div>
-    <div class="user-no-post flex flex-col justify-center items-center" v-if="userBlogs.length===0">
-      <h1 class="text-xl block">You don't have any Post...</h1>
-      <div class="router-link my-6">
-      <router-link to="/create" class="create-post-btn">Create Post</router-link>
+   <div class="contain">
+      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <div class="header w-full bg-gray-200 font-bold">
+         <h1 class="text-black  text-center text-4xl py-5">My Blogs</h1>
       </div>
-    </div>
-    <div class="back-color bg-gray-200" v-if="userBlogs.length">
       <div
-        class="user-blogs grid grid-cols-1 mx-6 pt-5 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mx-20 py-8"
+         class="user-no-post flex flex-col justify-center items-center"
+         v-if="userBlogs.length === 0"
       >
-        <base-cards
-          class="mx-4"
-          v-for="(blog, index) in userBlogs"
-          :key="index"
-          :body="blog.body"
-          :id="blog.id"
-          :name="blog.name"
-          :excerpt="blog.excerpt"
-          :tags="blog.tags"
-          :image="blog.image_path"
-          mypost="true"
-          @delete-post="deletePost"
-        ></base-cards>
+         <h1 class="text-xl block">You don't have any Post...</h1>
+         <div class="router-link my-6">
+            <router-link to="/create" class="create-post-btn"
+               >Create Post</router-link
+            >
+         </div>
       </div>
-    </div>
-  </div>
+      <div class="back-color bg-gray-200" v-if="userBlogs.length">
+         <div
+            class="user-blogs grid grid-cols-1 mx-6 pt-5 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mx-20 py-8"
+         >
+            <base-cards
+               class="mx-4"
+               v-for="(blog, index) in userBlogs"
+               :key="index"
+               :body="blog.body"
+               :id="blog.id"
+               :name="blog.name"
+               :excerpt="blog.excerpt"
+               :tags="blog.tags"
+               :image="blog.image_path"
+               mypost="true"
+               @delete-post="deletePost"
+            ></base-cards>
+         </div>
+      </div>
+   </div>
 </template>
 <script>
 import axios from "axios";
 import BaseCards from "../Cards/baseCards.vue";
+import TheNav from '../nav/TheNav.vue'
 export default {
   components: {
     BaseCards,
+    TheNav
   },
   data() {
     return {
       id: "",
       blogsList: [],
       userBlogs: [],
+      userLoggedIn:false,
+      userName:''
     };
   },
   created() {
     //Getting user id
+    this.getProfile()
     axios
       .post(
-        "http://127.0.0.1:8000/api/profile",
+        "/profile",
         {},
         {
           headers: {
@@ -59,7 +70,7 @@ export default {
       .then((res) => {
         this.id = res.data.id;
         axios
-          .get("http://127.0.0.1:8000/api/post")
+          .get("/post")
           .then((res) => {
             this.blogsList = res.data;
             this.userBlogs = this.blogsList.filter(
@@ -81,7 +92,38 @@ export default {
       // console.log(this.userBlogs[0].id)
       this.userBlogs=this.userBlogs.filter(value=>value.id!==id)
       // console.log(this.userBlogs);
-    }
+    },
+    getProfile() {
+         if (this.$store.getters.userName === "") {
+            axios
+               .post(
+                  "/profile",
+                  {},
+                  {
+                     headers: {
+                        Authorization:
+                           "Bearer " + localStorage.getItem("token"),
+                     },
+                  }
+               )
+               .then((res) => {
+                  console.log(res);
+                  this.userLoggedIn = true;
+                  console.log(res.data.name);
+                  this.userName = res.data.name;
+                  this.$store.dispatch("setUserName", {
+                     userName: this.userName,
+                  });
+                  
+               })
+               .catch((err) => {
+                  console.log(err);
+               });
+         } else {
+            this.userName = this.$store.getters.userName;
+            this.userLoggedIn = true;
+         }
+      },
   },
   // watch:{
   //   userBlogs(newValue){
@@ -92,16 +134,15 @@ export default {
 </script>
 <style scoped>
 .yellow-text {
-  color: #fff700;
+   color: #fff700;
 }
-.user-no-post{
-    height: 80vh;
+.user-no-post {
+   height: 80vh;
 }
-.create-post-btn{
-    background-color: #000;
-    color: #fff700;
-    padding: 0.5rem .5rem;
-    border-radius: 10px;
+.create-post-btn {
+   background-color: #000;
+   color: #fff700;
+   padding: 0.5rem 0.5rem;
+   border-radius: 10px;
 }
-
 </style>

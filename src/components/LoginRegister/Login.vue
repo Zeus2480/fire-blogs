@@ -71,7 +71,7 @@ export default {
         password: this.password,
       };
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login",
+        "/login",
         data
       );
       console.log(response.data.access_token)

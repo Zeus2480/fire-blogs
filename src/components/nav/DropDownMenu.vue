@@ -11,7 +11,7 @@
         <li><router-link to="/create" class="font-normal tracking-normal">Write Blog</router-link></li>
         <li><router-link to="/userpost" class="font-normal tracking-normal">My Post's</router-link></li>
         <li><router-link to="/bookmarked" class="font-normal tracking-normal">Favourites</router-link></li>
-        <li><button @click="logOut">Log Out</button></li>
+        <li @click="logOut"><button>Log Out</button></li>
 
       </ul>
     </div>
@@ -31,9 +31,9 @@ export default {
       this.showDropDown = !this.showDropDown;
     },
     logOut() {
-        console.log('log')
+        // console.log('log')
       axios.post(
-        "http://127.0.0.1:8000/api/logout",
+        "/logout",
         {},
         {
           headers: {
@@ -43,6 +43,9 @@ export default {
       ).then(res=>{
           console.log(res);
           localStorage.removeItem("token");
+          this.$store.dispatch('setUserName',{
+                     userName:''
+                  })
           this.$router.push('/login')
       }).catch(err=>{
           console.log(err)

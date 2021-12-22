@@ -54,9 +54,9 @@ const routes = [
     component:CreateBlog
   },
   {
+    name:'edit',
     path:'/edit',
     component:UpdateBlog,
-    name:'edit',
     props:true
   },
   {

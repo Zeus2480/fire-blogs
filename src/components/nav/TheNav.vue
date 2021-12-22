@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar sticky sm:block">
+  <nav class="navbar sticky sm:block z-50">
     <div class="nav-image invisible sm:visible">
       <!-- <h1 class="bg-red-500">Hello</h1> -->
       <img src="../../assets/logo/meteor.png" /><a href="#"></a>

@@ -2,16 +2,16 @@
    <div class="card">
       <div
          class="max-w-sm rounded overflow-hidden height shadow-lg mainn flex flex-col justify-evenly"
-         @click="open"
+         
       >
-         <div class="img">
+         <div class="img my-2 rounded-xl h-40 relative overflow " @click="open">
             <img
-               class="w-full h-60 bg-cover bg-center"
+               class="absolute block inset-0 w-full h-full m-auto object-cover ls-is-cached lazyloaded -z-50"
                :src="imageUrl"
                alt="Sunset in the mountains"
             />
          </div>
-         <div class="px-6 py-4">
+         <div class="px-6 py-4" @click="open">
             <div class="font-bold text-xl mb-2">{{ name }}</div>
             <p
                class="text-gray-700 text-base paragraph-contain overflow-hidden"
@@ -68,7 +68,7 @@ export default {
       },
       deletePost() {
          axios
-            .delete(`http://127.0.0.1:8000/api/post/${this.id}/delete`)
+            .delete(`/post/${this.id}/delete`)
             .then((res) => {
                console.log(res);
                this.$emit("delete-post", this.id);

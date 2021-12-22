@@ -9,7 +9,7 @@
                class="cards grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mx-10"
             >
                <base-cards
-                  v-for="(blog, index) in recentBlogs"
+                  v-for="(blog, index) in recentBlogsList"
                   :key="index"
                   :body="blog.body"
                   :id="blog.id"
@@ -38,7 +38,7 @@ import axios from "axios";
 export default {
    computed: {
       recentBlogsList() {
-         return this.recentBlogs;
+         return this.$store.getters.fourPostsArray;
       },
    },
 
@@ -52,9 +52,9 @@ export default {
    created() {
       console.log(localStorage.getItem("token"));
       //getting profile
+      this.fourPost();
       this.getProfile();
       //getting post
-      this.fourPost();
    },
    watch: {
       recentBlogs(newValue) {
@@ -63,21 +63,23 @@ export default {
    },
    methods: {
       fourPost() {
-         axios.get("http://127.0.0.1:8000/api/post").then((res) => {
+         axios.get("/post").then((res) => {
             // console.log(res)
             for (var i = 0; i < 4; i++) {
                this.recentBlogs[i] = res.data[i];
             }
-            console.log(this.recentBlogs);
+            this.$store.dispatch("setFourPostsArray", {
+               fourPostsArray: this.recentBlogs,
+            });
          });
       },
       getProfile() {
-         if (localStorage.getItem("token") !== null) {
+         if (this.$store.getters.userName === "") {
             axios
                .post(
-                  "http://127.0.0.1:8000/api/profile",
+                  "/profile",
                   {},
-                  { 
+                  {
                      headers: {
                         Authorization:
                            "Bearer " + localStorage.getItem("token"),
@@ -85,14 +87,20 @@ export default {
                   }
                )
                .then((res) => {
-                  // console.log(res);
+                  console.log(res);
                   this.userLoggedIn = true;
-                  // console.log(res.data.name);
+                  console.log(res.data.name);
                   this.userName = res.data.name;
+                  this.$store.dispatch("setUserName", {
+                     userName: this.userName,
+                  });
                })
                .catch((err) => {
                   console.log(err);
                });
+         } else {
+            this.userName = this.$store.getters.userName;
+            this.userLoggedIn = true;
          }
       },
    },

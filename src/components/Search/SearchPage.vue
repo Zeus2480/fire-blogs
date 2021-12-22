@@ -41,7 +41,7 @@ export default {
   props: ["searchQuery"],
   created() {
     axios
-      .post("http://127.0.0.1:8000/api/search", {
+      .post("/search", {
         query: this.searchQuery,
       })
       .then((res) => {

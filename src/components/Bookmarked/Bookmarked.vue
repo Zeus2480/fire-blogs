@@ -35,11 +35,11 @@ export default {
   },
 
   created() {
-    axios.get("http://127.0.0.1:8000/api/post").then((res) => {
+    axios.get("/post").then((res) => {
       this.allPost = res.data;
     //   console.log(this.allPost)
       axios
-        .get("http://127.0.0.1:8000/api/bookmark", {
+        .get("/bookmark", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
