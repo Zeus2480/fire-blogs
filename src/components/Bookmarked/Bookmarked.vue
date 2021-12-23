@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="header w-full bg-black">
-      <h1 class="yellow-text text-center text-4xl py-5">Favrouites</h1>
+    <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+    <div class="header w-full ">
+      <h1 class="text-black font-bold mt-4  text-center text-4xl py-2">Favrouites</h1>
     </div>
     <div
       class="allblogs cards grid grid-cols-1 mx-6 my-4 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mx-20 xl:my-20"
@@ -23,19 +24,58 @@
 <script>
 import axios from "axios";
 import BaseCards from "../Cards/baseCards.vue";
+import TheNav from '../nav/TheNav.vue'
 export default {
   data() {
     return {
       bookmarkedList: [],
       allPost: [],
+      userName:'',
+      userLoggedIn:null
     };
   },
   components: {
     BaseCards,
+    TheNav
   },
 
   created() {
-    axios.get("/post").then((res) => {
+    this.getBookmarks();
+    this.getProfile();
+  },
+  methods:{
+    getProfile() {
+         if (this.$store.getters.userName === "") {
+            axios
+               .post(
+                  "/profile",
+                  {},
+                  {
+                     headers: {
+                        Authorization:
+                           "Bearer " + localStorage.getItem("token"),
+                     },
+                  }
+               )
+               .then((res) => {
+                  // console.log(res);
+                  this.userLoggedIn = true;
+                  // console.log(res.data.name);
+                  this.userName = res.data.name;
+                  this.$store.dispatch("setUserName", {
+                     userName: this.userName,
+                  });
+               })
+               .catch((err) => {
+                  console.log(err);
+               });
+         } else {
+            this.userName = this.$store.getters.userName;
+            this.userLoggedIn = true;
+         }
+      },
+    getBookmarks(){
+      axios.get("/post").then((res) => {
       this.allPost = res.data;
     //   console.log(this.allPost)
       axios
@@ -54,6 +94,7 @@ export default {
 
         });
     });
-  },
+    }
+  }
 };
 </script>

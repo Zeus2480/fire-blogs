@@ -2,7 +2,7 @@
   <nav class="navbar sticky sm:block z-50">
     <div class="nav-image invisible sm:visible">
       <!-- <h1 class="bg-red-500">Hello</h1> -->
-      <img src="../../assets/logo/meteor.png" /><a href="#"></a>
+      <img src="../../assets/logo/meteor.png" />
     </div>
     <div class="nav-links">
       <ul class="flex flex-col sm:flex-row">
@@ -56,7 +56,7 @@ export default {
 } */
 .nav-links ul li,
 .nav-links ul li a {
-  margin: 0.5rem 0.5rem;
+  margin: 0.5rem 0.2rem;
   color: aliceblue; /*   Use tailwind for padding and use less padding for mobile devices*/
   font-weight: 600;
   letter-spacing: 1.1px;
@@ -69,6 +69,7 @@ export default {
 .router-link-active {
   border: #fff724 3px solid;
   border-radius: 10px;
+  transition: 0.2s;
 }
 /* .menu-icon {
   cursor: pointer;

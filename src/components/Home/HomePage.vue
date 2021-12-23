@@ -1,17 +1,17 @@
 <template>
    <div class="header grid grid-cols-1 sm:grid-cols-2">
-      <div class="welcome-message my-auto">
+      <div class="welcome-message m-auto">
          <h1 class="typed font-semibold mt-24 mb-16 text-6xl sm:text-8xl">
             Welcome
          </h1>
-         <p class="break-words text-white px-10 text-base sm:text-lg">
+         <p class="break-words text-white mb-8 px-10 text-base sm:text-lg">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus
             eum quaerat quasi ad officia molestias rerum! Necessitatibus nemo
             adipisci et.
          </p>
-         <button class="btn m-12" href=".recent-posts">
+         <a class="btn m-12" href="#recent-posts">
             Explore <span class="arrow">&darr;</span>
-         </button>
+         </a>
       </div>
       <div class="image">
          <img src="../../assets/images/pexels-lisa-851213.jpg" alt="" />

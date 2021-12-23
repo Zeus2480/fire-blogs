@@ -1,5 +1,5 @@
 <template>
-<div class="recent-posts" ref="someName">
+<div id="recent-posts" ref="someName">
     <h1 class="font-bold text-5xl mt-40 mb-10 ">Content</h1>
     <div class="post flex flex-col shadow-xl">
         <recent-post-list></recent-post-list>

@@ -1,11 +1,12 @@
 <template>
    <div class="bg-color">
-      <div class="contain my-8 flex">
-         <div class="center-container w-full max-w-xl m-auto shadow-2xl">
+      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <div class="contain my-10 w-3/4 m-auto flex">
+         <div class="w-full px-10 m-auto shadow-2xl">
             <div class="heading">
-               <h1 class="font-bold text-4xl my-8">{{ name }}</h1>
+               <h1 class="font-bold text-4xl text-black my-8">{{ name }}</h1>
             </div>
-            <div class="image rounded-lg">
+            <div class="image rounded-lg w-3/4 m-auto">
                <img :src="imageUrl" class="rounded-lg px-8 my-10" alt="" />
             </div>
             <div class="body my-6">
@@ -14,9 +15,9 @@
                   v-html="body"
                ></p>
             </div>
-            <div class="bg-color bg-gray-200 py-4">
+            <div class="bg-color bg-gray-200 py-4 mx-8 rounded-xl mb-8 m-auto">
                <div class="buton flex justify-between my-8">
-                  <div class="like mx-8">
+                  <div class="like mx-10">
                      <button @click="like">
                         <img
                            src="../../assets/logo/love.png"
@@ -35,7 +36,7 @@
                      </button>
                      <p>{{ noOfLikes }}</p>
                   </div>
-                  <div class="bookmark mx-8">
+                  <div class="bookmark mx-10">
                      <button @click="bookmark">
                         <img
                            src="../../assets/logo/bookmark.png"
@@ -55,21 +56,26 @@
                   </div>
                </div>
                <div class="comments">
-                  <div class="add-comment flex justify-around">
+                  <div class="add-comment flex justify-evenly">
                      <textarea
                         name="comment"
                         id="comment"
                         cols="30"
                         rows="3"
                         placeholder="Type Your Comment"
-                        class="border-solid border-2 border-zinc-900"
+                        class="border-solid border-2 w-full mx-8 border-zinc-900"
                         v-model.trim="comment"
                      ></textarea>
-                     <div class="but flrx justify-center align-middle">
-                        <button @click="postComment">Comment</button>
+                     <div class="but flex w-1/5">
+                        <button class="comment-button" @click="postComment">
+                           Comment
+                        </button>
                      </div>
                   </div>
-                  <div class="show-comment">
+                  <div class="show-commentbox">
+                     <h1 class="text-left font-semibold text-lg mx-8">
+                        Recent Comments
+                     </h1>
                      <show-comment
                         v-for="(comment, index) in showCommentsArray"
                         :key="index"
@@ -85,6 +91,7 @@
 <script>
 import axios from "axios";
 import ShowComment from "../ViewPost/ShowComment.vue";
+import TheNav from "../nav/TheNav.vue";
 export default {
    data() {
       return {
@@ -98,79 +105,27 @@ export default {
          commentIsValid: true,
          showCommentsArray: [],
          imagePath: "",
+         userName: "",
+         userLoggedIn: null,
       };
    },
    props: ["id"],
    components: {
       ShowComment,
+      TheNav,
    },
    created() {
       // console.log(this.id);
-      axios
-         .get(`/post/${this.id}`)
-         .then((res) => {
-            this.imagePath = res.data.image_path;
-            this.body = res.data.body;
-            this.excerpt = res.data.excerpt;
-            this.name = res.data.name;
-         })
-         .catch((err) => {
-            console.log(err);
-         });
+      this.getProfile();
+      this.getPostData();
       //Get all comments
-      axios
-         .get("/comments")
-         .then((res) => {
-            // console.log(res)
-            this.showCommentsArray = res.data.filter(
-               (data) => data.post_id == this.id
-            );
-            //console.log(res.data);
-            //   this.$route.push(`/post/${this.id}`)
-         })
-         .catch((err) => {
-            console.log(err);
-         });
+      this.getAllComments();
       //no of likes
-      axios
-         .get(`/post/${this.id}/counts`)
-         .then((res) => {
-            this.noOfLikes = res.data.like;
-         })
-         .catch((err) => {
-            console.log(err);
-         });
+      this.getNoOfLikes();
       //user liked or not
-      axios
-         .get(`/liked/${this.id}`, {
-            headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-         })
-         .then((res) => {
-            if (res.data.is_like === 1) {
-               this.liked = true;
-            } else {
-               this.liked = false;
-            }
-         })
-         .catch((err) => {
-            console.log(err);
-         });
+      this.userLikedOrNot();
       //bookmarked or not
-      axios
-         .get(`/check/bookmark?post_id=${this.id}`, {
-            headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-         })
-         .then((res) => {
-            if (res.data.is_bookmark === 1) {
-               this.bookmarked = true;
-            } else {
-               this.bookmarked = false;
-            }
-         });
+      this.bookmarkedOrNOt();
    },
    computed: {
       imageUrl() {
@@ -178,6 +133,107 @@ export default {
       },
    },
    methods: {
+      bookmarkedOrNOt() {
+         axios
+            .get(`/check/bookmark?post_id=${this.id}`, {
+               headers: {
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+               },
+            })
+            .then((res) => {
+               if (res.data.is_bookmark === 1) {
+                  this.bookmarked = true;
+               } else {
+                  this.bookmarked = false;
+               }
+            });
+      },
+      userLikedOrNot() {
+         axios
+            .get(`/liked/${this.id}`, {
+               headers: {
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+               },
+            })
+            .then((res) => {
+               if (res.data.is_like === 1) {
+                  this.liked = true;
+               } else {
+                  this.liked = false;
+               }
+            })
+            .catch((err) => {
+               console.log(err);
+            });
+      },
+      getNoOfLikes() {
+         axios
+            .get(`/post/${this.id}/counts`)
+            .then((res) => {
+               this.noOfLikes = res.data.like;
+            })
+            .catch((err) => {
+               console.log(err);
+            });
+      },
+      getAllComments() {
+         axios
+            .get("/comments")
+            .then((res) => {
+               // console.log(res)
+               this.showCommentsArray = res.data.filter(
+                  (data) => data.post_id == this.id
+               );
+               //console.log(res.data);
+               //   this.$route.push(`/post/${this.id}`)
+            })
+            .catch((err) => {
+               console.log(err);
+            });
+      },
+      getPostData() {
+         axios
+            .get(`/post/${this.id}`)
+            .then((res) => {
+               this.imagePath = res.data.image_path;
+               this.body = res.data.body;
+               this.excerpt = res.data.excerpt;
+               this.name = res.data.name;
+            })
+            .catch((err) => {
+               console.log(err);
+            });
+      },
+      getProfile() {
+         if (this.$store.getters.userName === "") {
+            axios
+               .post(
+                  "/profile",
+                  {},
+                  {
+                     headers: {
+                        Authorization:
+                           "Bearer " + localStorage.getItem("token"),
+                     },
+                  }
+               )
+               .then((res) => {
+                  // console.log(res);
+                  this.userLoggedIn = true;
+                  // console.log(res.data.name);
+                  this.userName = res.data.name;
+                  this.$store.dispatch("setUserName", {
+                     userName: this.userName,
+                  });
+               })
+               .catch((err) => {
+                  console.log(err);
+               });
+         } else {
+            this.userName = this.$store.getters.userName;
+            this.userLoggedIn = true;
+         }
+      },
       bookmark() {
          axios
             .post(
@@ -274,5 +330,15 @@ export default {
 <style scoped>
 .add-comment {
    margin-bottom: 2rem;
+}
+.comment-button {
+   background-color: #10131d;
+   color: #fff;
+   margin: 1rem 0;
+   padding: 0.4rem 0.6rem;
+   border-radius: 15px;
+}
+.show-comment-box {
+   background-color: #fff;
 }
 </style>

@@ -9,7 +9,7 @@
       <ul class="p-2">
         <li class="font-normal tracking-normal">Hey {{ userName }}</li>
         <li><router-link to="/create" class="font-normal tracking-normal">Write Blog</router-link></li>
-        <li><router-link to="/userpost" class="font-normal tracking-normal">My Post's</router-link></li>
+        <li><router-link to="/userpost" class="font-normal tracking-normal">My Blogs</router-link></li>
         <li><router-link to="/bookmarked" class="font-normal tracking-normal">Favourites</router-link></li>
         <li @click="logOut"><button>Log Out</button></li>
 
@@ -57,12 +57,15 @@ export default {
 <style scoped>
 .menu ul li {
   color: black;
-  padding: 4px;
+  padding: 3px;
   margin: 6px 0;
   border-radius: 1.5rem;
 }
+.menu ul{
+  padding: 10px;
+}
 .menu ul li:hover {
-  background-color: rgb(197, 197, 197);
+  background-color: rgb(231, 231, 231);
 }
 .image {
   height: 2.2rem;
@@ -74,5 +77,10 @@ export default {
 }
 .contain {
   position: absolute;
+}
+.router-link-active{
+  background-color: rgb(231, 231, 231);
+  padding:6px 20px;
+  border-radius: 1.5rem;
 }
 </style>

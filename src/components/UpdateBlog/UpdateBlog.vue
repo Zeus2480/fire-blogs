@@ -51,6 +51,7 @@
                      @change="onFileSelected"
                      accept=".png, .jpg, .jpeg"
                      class="mb-4"
+
                   />
                </div>
             </div>
@@ -74,7 +75,7 @@ import { VueEditor } from "vue2-editor";
 import TheNav from "../nav/TheNav.vue";
 import axios from "axios";
 export default {
-   props: ["title", "content", "excerpt", "id"],
+   props: ["title", "content", "excerpt", "id",'image'],
    components: {
       VueEditor,
       TheNav,
@@ -92,7 +93,9 @@ export default {
       };
    },
   created(){
-    this.getProfile()
+    this.getProfile();
+    this.selectedFile=this.image;
+    console.log(this.selectedFile)
   },
    methods: {
       getProfile() {
@@ -109,9 +112,9 @@ export default {
                   }
                )
                .then((res) => {
-                  console.log(res);
+                  // console.log(res);
                   this.userLoggedIn = true;
-                  console.log(res.data.name);
+                  // console.log(res.data.name);
                   this.userName = res.data.name;
                   this.$store.dispatch("setUserName", {
                      userName: this.userName,

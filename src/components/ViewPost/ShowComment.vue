@@ -1,5 +1,5 @@
 <template>
-    <div class="contain flex justify-start my-8 w-full max-w-xl">
+    <div class="contain flex justify-start my-8 w-3/5 ml-8">
         <div class="name px-8 my-4">
             <img src="../../assets/logo/man.png" class="h-8 " alt="avatar">
         </div>
@@ -14,8 +14,9 @@ export default {
 }
 </script>
 <style scoped>
-.comment{
-    border: 2px solid ;
+.contain{
+     background-color:#fff;
+     border-radius: 10px;
 }
 
 </style>

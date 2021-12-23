@@ -1,7 +1,8 @@
 <template>
-   <div class="card">
+   <div class="card rounded-3xl ">
+      <the-modal @user-button-result="checkDeleteStatus" v-show="showDeleteModal"></the-modal>
       <div
-         class="max-w-sm rounded overflow-hidden height shadow-lg mainn flex flex-col justify-evenly"
+         class="max-w-sm rounded-3xl overflow-hidden height  mainn flex flex-col justify-evenly"
          
       >
          <div class="img my-2 rounded-xl h-40 relative overflow " @click="open">
@@ -24,7 +25,7 @@
             <router-link class="mx-2 btn" :to="viewPostButton"
                >View</router-link
             >
-            <button v-show="mypost" @click="deletePost" class="mx-3 btn">
+            <button v-show="mypost" @click="showModal" class="mx-3 btn">
                Delete
             </button>
             <router-link
@@ -35,6 +36,7 @@
                      content: body,
                      excerpt: excerpt,
                      id: id,
+                     image:image
                   },
                }"
                v-show="mypost"
@@ -47,11 +49,15 @@
 </template>
 <script>
 import axios from "axios";
+import TheModal from "../Modal/TheModal.vue"
 export default {
    props: ["body", "id", "name", "excerpt", "tags", "image", "mypost"],
+   components:{
+      TheModal
+   },
    data() {
       return {
-       
+       showDeleteModal:false
       };
    },
    computed: {
@@ -66,17 +72,26 @@ export default {
       open(){
          this.$router.push(this.viewPostButton)
       },
+      showModal(){
+         this.showDeleteModal=true;
+      },
+      checkDeleteStatus(status){
+         this.showDeleteModal=false;
+         if(status){
+            this.deletePost();
+         }
+      },
       deletePost() {
+
          axios
             .delete(`/post/${this.id}/delete`)
-            .then((res) => {
-               console.log(res);
+            .then(() => {
                this.$emit("delete-post", this.id);
             })
             .catch((err) => {
                console.log(err);
             });
-         console.log(this.id);
+         // console.log(this.id);
       },
    },
 };
@@ -84,12 +99,16 @@ export default {
 <style scoped>
 .btn {
    background-color: #000;
-   color: #fff700;
+   color: #fff;
+   font-weight: 500;
    padding: 0.2rem 0.5rem;
    border-radius: 10px;
 }
 .btn:hover {
-   background-color: rgb(39, 39, 39);
+   background-color: rgb(56, 56, 56);
+   transition: 0.3s;
+   /* font-size: 1.1rem; */
+   
 }
 .height {
    height: 28rem;

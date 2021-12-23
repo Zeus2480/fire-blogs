@@ -8,6 +8,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap");
 body {
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
