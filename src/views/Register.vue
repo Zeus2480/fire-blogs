@@ -171,7 +171,7 @@ export default {
           password_confirmation:this.confirmPassword
         }
         
-        console.log(data);
+        // console.log(data);
         axios.post('/register',data).then(res=>{
           localStorage.setItem('token',res.data.access_token);
           this.$router.push('/home')

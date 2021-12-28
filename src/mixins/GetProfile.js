@@ -11,7 +11,7 @@ export default{
     },
     methods:{
         getProfile(){
-            console.log("hello")
+            // console.log("hello")
             if (this.$store.getters.userName === "") {
                axios
                   .post(
@@ -25,9 +25,9 @@ export default{
                      }
                   )
                   .then((res) => {
-                     console.log(res);
+                    //  console.log(res);
                      this.userLoggedIn = true;
-                     console.log(res.data.name);
+                    //  console.log(res.data.name);
                      this.userName = res.data.name;
                      this.$store.dispatch("setUserName", {
                         userName: this.userName,

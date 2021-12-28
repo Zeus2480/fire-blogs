@@ -139,13 +139,13 @@ export default {
       //    }
       // },
       onFileSelected(event) {
-         console.log(event);
-         console.log(event.target.files[0]);
+         // console.log(event);
+         // console.log(event.target.files[0]);
          this.selectedFile = event.target.files[0];
          // console.log(this.selectedFile);
       },
       update() {
-         console.log(this.selectedFile);
+         // console.log(this.selectedFile);
          const formData = new FormData();
          if(this.selectedFile!==""){
             formData.append("image", this.selectedFile);

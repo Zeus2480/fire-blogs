@@ -47,7 +47,7 @@ export default {
       TheSearch,
    },
    created() {
-      console.log(this.$store.getters.userName);
+      // console.log(this.$store.getters.userName);
       this.getAllPost()
       // this.getProfile();
    },
@@ -56,9 +56,9 @@ export default {
          axios
             .get("/post")
             .then((res) => {
-               console.log(res);
+               // console.log(res);
                this.blogsList = res.data;
-               console.log(this.blogsList);
+               // console.log(this.blogsList);
             })
             .catch((err) => {
                console.log(err);

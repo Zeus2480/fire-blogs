@@ -90,7 +90,7 @@ export default {
              password: this.password,
           };
           axios.post("/login", data).then((response) => {
-             console.log(response.data.access_token);
+            //  console.log(response.data.access_token);
              localStorage.setItem("token", response.data.access_token);
              this.$router.push("/home");
           }).catch(err=>{

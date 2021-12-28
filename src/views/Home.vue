@@ -52,7 +52,7 @@ export default {
       };
    },
    created() {
-      console.log(localStorage.getItem("token"));
+      // console.log(localStorage.getItem("token"));
       //getting profile
       this.fourPost();
       // this.getProfile();

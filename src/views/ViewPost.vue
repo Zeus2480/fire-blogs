@@ -186,7 +186,7 @@ export default {
                this.showCommentsArray = res.data.filter(
                   (data) => data.post_id == this.id
                );
-               console.log(this.showCommentsArray)
+               // console.log(this.showCommentsArray)
                //console.log(res.data);
                //   this.$route.push(`/post/${this.id}`)
             })
@@ -275,7 +275,7 @@ export default {
                }
             )
             .then((res) => {
-               console.log(res.data.like);
+               // console.log(res.data.like);
                if (res.data.like === 0) {
                   this.liked = false;
                   this.noOfLikes--;
@@ -285,7 +285,7 @@ export default {
                }
             })
             .catch((err) => {
-               console.log(err.response);
+               // console.log(err.response);
                if (err.response.status === 401) {
                   this.$router.push("/login");
                }

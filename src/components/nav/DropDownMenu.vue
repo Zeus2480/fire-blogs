@@ -40,8 +40,8 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
-      ).then(res=>{
-          console.log(res);
+      ).then(()=>{
+          // console.log(res);
           localStorage.removeItem("token");
           this.$store.dispatch('setUserName',{
                      userName:''
