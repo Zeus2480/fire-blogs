@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+    <the-nav></the-nav>
     <div class="header w-full ">
       <h1 class="text-black font-bold mt-4  text-center text-4xl py-2">Favrouites</h1>
     </div>
@@ -23,9 +23,9 @@
 </template>
 <script>
 import axios from "axios";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 export default {
-  mixins:[GetProfile],
+  // mixins:[GetProfile],
   data() {
     return {
       bookmarkedList: [],

@@ -1,6 +1,6 @@
 <template>
    <div class="contain">
-      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <the-nav ></the-nav>
       <div class="header w-full bg-gray-200 font-bold">
          <h1 class="text-black  text-center text-4xl py-5">My Blogs</h1>
       </div>
@@ -38,10 +38,10 @@
 </template>
 <script>
 import axios from "axios";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 
 export default {
-   mixins:[GetProfile],
+   // mixins:[GetProfile],
   data() {
     return {
       id: "",

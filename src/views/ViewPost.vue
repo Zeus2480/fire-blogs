@@ -1,6 +1,6 @@
 <template>
    <div class="bg-color">
-      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <the-nav></the-nav>
       <div class="contain my-10 w-3/4 m-auto flex">
          <div class="w-full px-10 m-auto shadow-2xl">
             <div class="heading">
@@ -91,10 +91,10 @@
 <script>
 import axios from "axios";
 import ShowComment from "../components/ViewPost/ShowComment.vue";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 
 export default {
-   mixins:[GetProfile],
+   // mixins:[GetProfile],
    data() {
       return {
          liked: false,

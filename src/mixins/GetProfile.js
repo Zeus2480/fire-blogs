@@ -11,6 +11,7 @@ export default{
     },
     methods:{
         getProfile(){
+            console.log("hello")
             if (this.$store.getters.userName === "") {
                axios
                   .post(

@@ -22,8 +22,9 @@
 </template>
 <script>
 import dropDown from "../components/nav/DropDownMenu.vue";
+import GetProfile from "../mixins/GetProfile"
 export default {
-  props: ["userName", "userLoggedIn"],
+  mixins:[GetProfile],
   components: {
     dropDown,
   },

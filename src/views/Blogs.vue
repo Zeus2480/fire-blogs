@@ -1,6 +1,6 @@
 <template>
    <div class="contain">
-      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <the-nav></the-nav>
       <the-search></the-search>
       <ul>
          <div class="contain">
@@ -28,9 +28,9 @@
 
 import TheSearch from "../components/Search/TheSearch.vue";
 import axios from "axios";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 export default {
-   mixins:[GetProfile],
+   // mixins:[GetProfile],
    data() {
       return {
          blogsList: [],

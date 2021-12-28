@@ -1,6 +1,6 @@
 <template>
    <div class="blog-post-creator">
-      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <the-nav></the-nav>
       <div class="header w-full mt-2">
          <h1 class="text-black text-center text-3xl  font-bold mt-4">Create Blog</h1>
       </div>
@@ -69,11 +69,11 @@
 </template>
 <script>
 import { VueEditor } from "vue2-editor";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 
 import axios from "axios";
 export default {
-   mixins:[GetProfile],
+   // mixins:[GetProfile],
    components: {
       VueEditor,
      

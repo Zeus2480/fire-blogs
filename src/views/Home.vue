@@ -1,6 +1,6 @@
 <template>
    <div>
-      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <the-nav ></the-nav>
       <home-page></home-page>
       <recent-posts></recent-posts>
       <div class="contain my-10">
@@ -34,10 +34,10 @@ import RecentPosts from "../components/recentpost/RecentPost.vue";
 import TheFooter from "../components/Footer/TheFooter.vue";
 
 import axios from "axios";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 //  console.log(localStorage.getItem('token'));
 export default {
-   mixins:[GetProfile],
+   // mixins:[GetProfile],
    computed: {
       recentBlogsList() {
          return this.$store.getters.fourPostsArray;

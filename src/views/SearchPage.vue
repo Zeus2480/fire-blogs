@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+    <the-nav></the-nav>
     <div class="header w-full ">
       <h1 class="text-black font-bold text-center text-4xl py-5">Search Results</h1>
     </div>
@@ -27,9 +27,9 @@
 </template>
 <script>
 import axios from "axios";
-import GetProfile from "../mixins/GetProfile"
+// import GetProfile from "../mixins/GetProfile"
 export default {
-  mixins:[GetProfile],
+  // mixins:[GetProfile],
     data(){
         return{
             searchResults:[],
