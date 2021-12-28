@@ -39,6 +39,9 @@
           <p class="text-red-600 mt-1" v-if="!emailIsValid">
             Email should not be blank
           </p>
+          <p class="text-red-600 mt-1" v-if="emailAlreadyTaken">
+            Email already taken.
+          </p>
         </div>
         <div class="mb-3">
           <label
@@ -60,6 +63,10 @@
           <p class="text-red-600 mt-1" v-if="!passwordSame">
             Password and Confirm Password should be same
           </p>
+          <p class="text-red-600 mt-1" v-if="!passwordLengthIsValid">
+            Password should alteast be 6 characters long.
+          </p>
+          
           <!-- <p class="text-red-500 text-xs italic">Please choose a password.</p> -->
         </div>
         <div class="mb-6">
@@ -115,8 +122,10 @@ export default {
       passwordIsValid: true,
       confirmPassword: "",
       confirmPasswordIsValid: true,
+      passwordLengthIsValid:true,
       passwordSame: true,
       formIsvalid: true,
+      emailAlreadyTaken:false,
       errorArray:[]
     };
   },
@@ -134,6 +143,10 @@ export default {
       if (this.email === "") {
         this.emailIsValid = false;
         this.formIsvalid = false;
+      }
+      if(this.password.length<6){
+        this.passwordLengthIsValid=false
+        this.formIsvalid=false
       }
       if (this.password === "") {
         this.passwordIsValid = false;
@@ -163,7 +176,13 @@ export default {
           localStorage.setItem('token',res.data.access_token);
           this.$router.push('/home')
         }).catch(err=>{
-          console.log(err);
+          if(err.response.data.errors.email){
+            this.emailAlreadyTaken=true;
+            this.email="";
+            this.password="";
+            this.confirmPassword="";
+            this.name="";
+          }
         })
         // this.$router.push("/login");
       }

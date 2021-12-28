@@ -6,6 +6,7 @@
         class="px-4 py-2 w-80"
         placeholder="Search..."
         v-model="searchQuery"
+        @keyup.enter="push"
       />
       <router-link :to="{ name:'search',params:{
                searchQuery:searchQuery

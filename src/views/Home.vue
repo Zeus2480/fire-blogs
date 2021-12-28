@@ -64,7 +64,6 @@ export default {
    methods: {
       fourPost() {
          axios.get("/post").then((res) => {
-            // console.log(res)
             for (var i = 0; i < 4; i++) {
                this.recentBlogs[i] = res.data[i];
             }

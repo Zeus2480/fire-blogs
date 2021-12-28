@@ -1,15 +1,15 @@
 <template>
-  <nav class="navbar sticky sm:block z-50">
+  <nav class="navbar sticky h-14 sm:block z-50 ">
     <div class="nav-image invisible sm:visible">
       <!-- <h1 class="bg-red-500">Hello</h1> -->
-      <img src="../../assets/logo/meteor.png" />
+      <router-link to="/home" class="m-0 no-border" ><img class="h-full w-full" src="../../assets/logo/meteor.png" /></router-link>
     </div>
     <div class="nav-links">
       <ul class="flex flex-col sm:flex-row">
-        <li><router-link to="/home">Home</router-link></li>
-        <li><router-link to="/post">Blogs</router-link></li>
+        <li><router-link to="/home" class="nav-link">Home</router-link></li>
+        <li><router-link to="/post" class="nav-link">Blogs</router-link></li>
         <li v-show="!userLoggedIn">
-          <router-link to="/login">Login/Register</router-link>
+          <router-link to="/login" class="nav-link">Login/Register</router-link>
         </li>
         <li v-show="userLoggedIn">
           <div class="drop-down">
@@ -48,16 +48,20 @@ export default {
   padding: 0.1rem;
   margin-top:0.2rem ;
 }
+.nav-link{
+  color: #fff;
+}
 .nav-links {
   margin: 0.1rem 0;
 }
 /* .nav-links ul {
   display: flex;
 } */
+
 .nav-links ul li,
 .nav-links ul li a {
   margin: 0.5rem 0.2rem;
-  color: aliceblue; /*   Use tailwind for padding and use less padding for mobile devices*/
+  /* color: aliceblue;   Use tailwind for padding and use less padding for mobile devices */
   font-weight: 600;
   letter-spacing: 1.1px;
   padding: 5px;
@@ -67,10 +71,13 @@ export default {
   color: #fff724;
 }
 .router-link-active {
-  border: #fff724 3px solid;
-  border-radius: 10px;
+  color: #fff700;
+  /* background-color: #181818; */
+  /* border: #fff724 3px solid;
+  border-radius: 10px; */
   transition: 0.2s;
 }
+
 /* .menu-icon {
   cursor: pointer;
   position: absolute;

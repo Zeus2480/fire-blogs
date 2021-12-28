@@ -56,14 +56,14 @@
                   </div>
                </div>
                <div class="comments">
-                  <div class="add-comment flex justify-evenly">
+                  <div class="add-comment flex justify-evenly items-center">
                      <textarea
                         name="comment"
                         id="comment"
                         cols="30"
                         rows="3"
                         placeholder="Type Your Comment"
-                        class="border-solid border-2 w-full mx-8 border-zinc-900"
+                        class="border-solid border-2 w-full mx-8 border-black rounded-xl p-2"
                         v-model.trim="comment"
                      ></textarea>
                      <div class="but flex w-1/5">
@@ -73,7 +73,7 @@
                      </div>
                   </div>
                   <div class="show-commentbox">
-                     <h1 class="text-left font-semibold text-lg mx-8">
+                     <h1 class="text-left font-semibold text-lg mx-8" v-show="showCommentsArray.length!==0">
                         Recent Comments
                      </h1>
                      <show-comment
@@ -117,7 +117,7 @@ export default {
    created() {
       // console.log(this.id);
       this.getProfile();
-      this.getPostData();
+      this.getBlogData();
       //Get all comments
       this.getAllComments();
       //no of likes
@@ -184,6 +184,7 @@ export default {
                this.showCommentsArray = res.data.filter(
                   (data) => data.post_id == this.id
                );
+               console.log(this.showCommentsArray)
                //console.log(res.data);
                //   this.$route.push(`/post/${this.id}`)
             })
@@ -191,7 +192,7 @@ export default {
                console.log(err);
             });
       },
-      getPostData() {
+      getBlogData() {
          axios
             .get(`/post/${this.id}`)
             .then((res) => {

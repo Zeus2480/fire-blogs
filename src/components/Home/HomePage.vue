@@ -1,6 +1,6 @@
 <template>
-   <div class="header grid grid-cols-1 sm:grid-cols-2">
-      <div class="welcome-message m-auto">
+   <div class="header grid grid-cols-1 sm:grid-cols-2 m-auto">
+      <div class="welcome-message mt-10 h-100%">
          <h1 class="typed font-semibold mt-24 mb-16 text-6xl sm:text-8xl">
             Welcome
          </h1>
@@ -50,6 +50,7 @@ export default {
    color: #010411;
    background-color: #fff700;
    font-weight: 550;
-   box-shadow: 0 0 50px #fff700;
+   /* box-shadow: 0 0 50px #fff700; */
+   
 }
 </style>

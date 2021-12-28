@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userName:'',
-    fourPostsArray:[]
+    fourPostsArray:[],
+    allBlogsArray:[]
   },
   mutations: {
     setUserName(state,payload){
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     setFourPostsArray(state,payload){
       state.fourPostsArray=payload.fourPostsArray
+    },
+    setAllBlogsArray(state,payload){
+      state.setAllBlogsArray=payload.allBlogsArray;
     }
   },
   actions: {
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     },
     setFourPostsArray(context,payload){
       context.commit('setFourPostsArray',payload)
+    },
+    setAllBlogsArray(context,payload){
+      context.commit('setAllBlogsArray',payload)
     }
   },
   modules: {
@@ -32,6 +39,9 @@ export default new Vuex.Store({
     },
     fourPostsArray(state){
       return state.fourPostsArray;
+    },
+    allBlogsArray(state){
+      return state.allBlogsArray;
     }
   }
 })

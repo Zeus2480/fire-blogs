@@ -10,6 +10,9 @@ body {
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
 }
+html{
+  scroll-behavior: smooth;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

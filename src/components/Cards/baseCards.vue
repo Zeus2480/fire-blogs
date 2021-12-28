@@ -2,7 +2,7 @@
    <div class="card rounded-3xl ">
       <the-modal @user-button-result="checkDeleteStatus" v-show="showDeleteModal"></the-modal>
       <div
-         class="max-w-sm rounded-3xl overflow-hidden height  mainn flex flex-col justify-evenly"
+         class="max-w-sm rounded-3xl overflow-hidden height  mainn flex flex-col justify-evenly hover:cursor-pointer"
          
       >
          <div class="img my-2 rounded-xl h-40 relative overflow " @click="open">
@@ -97,6 +97,9 @@ export default {
 };
 </script>
 <style scoped>
+.mainn:hover{
+   cursor: pointer;
+}
 .btn {
    background-color: #000;
    color: #fff;

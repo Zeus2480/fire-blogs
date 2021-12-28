@@ -97,11 +97,11 @@ export default {
          delta: undefined,
       };
    },
-   watch: {
-      content() {
-         this.delta = this.$refs.myQuillEditor.quill.getContents();
-      },
-   },
+   // watch: {
+   //    content() {
+   //       this.delta = this.$refs.myQuillEditor.quill.getContents();
+   //    },
+   // },
    methods: {
       onFileSelected(event) {
          console.log(event);
@@ -131,7 +131,7 @@ export default {
                if (res.request.status === 200) {
                   this.$router.push("/post");
                }
-            });
+            }).catch(err=>console.log(err));
       },
 
 
@@ -189,7 +189,7 @@ input[type=file]::file-selector-button {
   border-radius: 10px;
   border: none;
   background-color: #10131d;
-  color: #fff700;
+  color: #fff;
   transition: 1s;
 }
 </style>

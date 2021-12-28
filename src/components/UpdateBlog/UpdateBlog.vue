@@ -1,12 +1,13 @@
 <template>
    <div class="blog-post-creator">
-      <the-nav :userLoggedIn="userLoggedIn" :userName="userName"></the-nav>
+      <the-nav :userLoggedIn="userLoggedIn" :userName="userName" ></the-nav>
       <div class="header w-full mt-2">
          <h1 class="text-black text-center text-3xl font-bold mt-4">
             Edit Blog
          </h1>
       </div>
       <div class="card w-3/4 m-auto mt-6 bg-gray-200">
+      <preview-image :image="image" v-show="showModal" @close-modal="closeModal"></preview-image>
          <div class="div w-5/6 m-auto">
             <div class="post-inputs flex flex-col pt-5 pl-10">
                <div class="title-input flex flex-col mt-2">
@@ -39,12 +40,13 @@
                      v-model="excerpt"
                   ></textarea>
                </div>
-               <div class="image-input flex">
+               <div class="image-input flex ">
                   <label
                      for="imageInput"
                      class="mb-4 text-left font-semibold text-black mr-8"
                      >Banner</label
                   >
+                  <button @click="preview" class="preview-button" >Preview</button>
                   <input
                      name="imageInput"
                      type="file"
@@ -74,10 +76,12 @@
 import { VueEditor } from "vue2-editor";
 import TheNav from "../nav/TheNav.vue";
 import axios from "axios";
+import PreviewImage from "./PreviewImage.vue"
 export default {
    props: ["title", "content", "excerpt", "id",'image'],
    components: {
       VueEditor,
+      PreviewImage,
       TheNav,
    },
    data() {
@@ -85,6 +89,7 @@ export default {
          selectedFile: "",
         userName:'',
         userLoggedIn:null,
+        showModal:false,
          editorOption: {
             placeholder: "Type your post.....",
             readOnly: true,
@@ -94,10 +99,20 @@ export default {
    },
   created(){
     this.getProfile();
-    this.selectedFile=this.image;
-    console.log(this.selectedFile)
+    
+    
+    console.log(this.selectedFile);
   },
    methods: {
+      closeModal(value){
+         // console.log(value)
+         this.showModal=value;
+      },
+
+      preview(){
+         this.showModal=true;
+      },
+      
       getProfile() {
          if (this.$store.getters.userName === "") {
             axios
@@ -129,14 +144,18 @@ export default {
          }
       },
       onFileSelected(event) {
-         // console.log(event);
-         // console.log(event.target.files[0]);
+         console.log(event);
+         console.log(event.target.files[0]);
          this.selectedFile = event.target.files[0];
          // console.log(this.selectedFile);
       },
       update() {
+         console.log(this.selectedFile);
          const formData = new FormData();
-         formData.append("image", this.selectedFile);
+         if(this.selectedFile!==""){
+            formData.append("image", this.selectedFile);
+         }
+         
          formData.append("name", this.title);
          formData.append("body", this.content);
          formData.append("excerpt", this.excerpt);
@@ -171,9 +190,19 @@ export default {
 }
 .buttoncolor {
    background-color: #10131d;
-   color: #fff700;
+   color: #fff;
 }
 .yellow-text {
    color: #fff700;
+}
+.preview-button{
+   margin: 0rem .5rem;
+   height: 2rem;
+   padding: .2em .4em;
+  border-radius: 10px;
+  border: none;
+  background-color: #10131d;
+  color: #fff;
+  transition: 1s;
 }
 </style>
