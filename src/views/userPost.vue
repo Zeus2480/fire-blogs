@@ -38,13 +38,10 @@
 </template>
 <script>
 import axios from "axios";
-import BaseCards from "../Cards/baseCards.vue";
-import TheNav from '../nav/TheNav.vue'
+
+
 export default {
-  components: {
-    BaseCards,
-    TheNav
-  },
+
   data() {
     return {
       id: "",

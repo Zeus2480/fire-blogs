@@ -24,9 +24,9 @@
    </div>
 </template>
 <script>
-import TheNav from "../../components/nav/TheNav.vue";
-import BaseCards from "../Cards/baseCards.vue";
-import TheSearch from "../Search/TheSearch.vue";
+
+
+import TheSearch from "../components/Search/TheSearch.vue";
 import axios from "axios";
 export default {
    data() {
@@ -41,8 +41,7 @@ export default {
       };
    },
    components: {
-      TheNav,
-      BaseCards,
+     
       TheSearch,
    },
    created() {

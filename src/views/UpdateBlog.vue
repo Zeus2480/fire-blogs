@@ -74,15 +74,14 @@
 </template>
 <script>
 import { VueEditor } from "vue2-editor";
-import TheNav from "../nav/TheNav.vue";
 import axios from "axios";
-import PreviewImage from "./PreviewImage.vue"
+import PreviewImage from "../components/UpdateBlog/PreviewImage.vue"
 export default {
    props: ["title", "content", "excerpt", "id",'image'],
    components: {
       VueEditor,
       PreviewImage,
-      TheNav,
+    
    },
    data() {
       return {

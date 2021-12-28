@@ -27,8 +27,7 @@
 </template>
 <script>
 import axios from "axios";
-import BaseCards from "../Cards/baseCards.vue";
-import TheNav from "../nav/TheNav.vue"
+
 export default {
     data(){
         return{
@@ -38,11 +37,7 @@ export default {
             userLoggedIn:null
         }
     },
-  components: {
-    BaseCards,
-    TheNav
-    
-  },
+  
   props: ["searchQuery"],
   created() {
     this.getSearchResults();

@@ -69,13 +69,13 @@
 </template>
 <script>
 import { VueEditor } from "vue2-editor";
-import TheNav from "../nav/TheNav.vue";
+
 
 import axios from "axios";
 export default {
    components: {
       VueEditor,
-      TheNav,
+     
    },
    created(){
      this.getProfile()

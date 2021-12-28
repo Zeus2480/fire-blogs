@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import TheNav from "../components/nav/TheNav.vue";
+
 import HomePage from "../components/Home/HomePage.vue";
 import RecentPosts from "../components/recentpost/RecentPost.vue";
 // import BottomCards from "../components/Home/BottomCards.vue";
 import TheFooter from "../components/Footer/TheFooter.vue";
-import BaseCards from "../components/Cards/baseCards.vue";
+
 import axios from "axios";
 //  console.log(localStorage.getItem('token'));
 export default {
@@ -105,12 +105,12 @@ export default {
    },
    name: "Home",
    components: {
-      TheNav,
+      
       HomePage,
       RecentPosts,
       // BottomCards,
       TheFooter,
-      BaseCards,
+     
    },
 };
 </script>

@@ -20,7 +20,7 @@
                   <div class="like mx-10">
                      <button @click="like">
                         <img
-                           src="../../assets/logo/love.png"
+                           src="../assets/logo/love.png"
                            alt=""
                            class="h-6"
                            v-show="!liked"
@@ -28,7 +28,7 @@
                      </button>
                      <button @click="like">
                         <img
-                           src="../../assets/logo/heart.png"
+                           src="../assets/logo/heart.png"
                            alt=""
                            class="h-6"
                            v-show="liked"
@@ -39,7 +39,7 @@
                   <div class="bookmark mx-10">
                      <button @click="bookmark">
                         <img
-                           src="../../assets/logo/bookmark.png"
+                           src="../assets/logo/bookmark.png"
                            alt=""
                            class="h-6"
                            v-show="!bookmarked"
@@ -47,7 +47,7 @@
                      </button>
                      <button @click="bookmark">
                         <img
-                           src="../../assets/logo/bookmark (1).png"
+                           src="../assets/logo/bookmark (1).png"
                            alt=""
                            class="h-6"
                            v-show="bookmarked"
@@ -90,8 +90,8 @@
 </template>
 <script>
 import axios from "axios";
-import ShowComment from "../ViewPost/ShowComment.vue";
-import TheNav from "../nav/TheNav.vue";
+import ShowComment from "../components/ViewPost/ShowComment.vue";
+
 export default {
    data() {
       return {
@@ -112,7 +112,7 @@ export default {
    props: ["id"],
    components: {
       ShowComment,
-      TheNav,
+
    },
    created() {
       // console.log(this.id);

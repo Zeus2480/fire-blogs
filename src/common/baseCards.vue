@@ -1,4 +1,4 @@
-<template>
+ <template>
    <div class="card rounded-3xl ">
       <the-modal @user-button-result="checkDeleteStatus" v-show="showDeleteModal"></the-modal>
       <div
@@ -49,7 +49,7 @@
 </template>
 <script>
 import axios from "axios";
-import TheModal from "../Modal/TheModal.vue"
+import TheModal from "../components/Modal/TheModal.vue"
 export default {
    props: ["body", "id", "name", "excerpt", "tags", "image", "mypost"],
    components:{

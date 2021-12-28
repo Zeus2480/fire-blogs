@@ -2,7 +2,7 @@
   <nav class="navbar sticky h-14 sm:block z-50 ">
     <div class="nav-image invisible sm:visible">
       <!-- <h1 class="bg-red-500">Hello</h1> -->
-      <router-link to="/home" class="m-0 no-border" ><img class="h-full w-full" src="../../assets/logo/meteor.png" /></router-link>
+      <router-link to="/home" class="m-0 no-border" ><img class="h-full w-full" src="../assets/logo/meteor.png" /></router-link>
     </div>
     <div class="nav-links">
       <ul class="flex flex-col sm:flex-row">
@@ -21,7 +21,7 @@
   </nav>
 </template>
 <script>
-import dropDown from "./DropDownMenu.vue";
+import dropDown from "../components/nav/DropDownMenu.vue";
 export default {
   props: ["userName", "userLoggedIn"],
   components: {
