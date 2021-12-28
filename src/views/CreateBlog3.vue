@@ -69,21 +69,19 @@
 </template>
 <script>
 import { VueEditor } from "vue2-editor";
-
+import GetProfile from "../mixins/GetProfile"
 
 import axios from "axios";
 export default {
+   mixins:[GetProfile],
    components: {
       VueEditor,
      
    },
-   created(){
-     this.getProfile()
-   },
+   
    data() {
       return {
-         userName: "",
-         userLoggedIn: null,
+         
          content: "",
          title: "",
          selectedFile: "",
@@ -135,36 +133,36 @@ export default {
       },
 
 
-      getProfile() {
-         if (this.$store.getters.userName === "") {
-            axios
-               .post(
-                  "/profile",
-                  {},
-                  {
-                     headers: {
-                        Authorization:
-                           "Bearer " + localStorage.getItem("token"),
-                     },
-                  }
-               )
-               .then((res) => {
-                  console.log(res);
-                  this.userLoggedIn = true;
-                  console.log(res.data.name);
-                  this.userName = res.data.name;
-                  this.$store.dispatch("setUserName", {
-                     userName: this.userName,
-                  });
-               })
-               .catch((err) => {
-                  console.log(err);
-               });
-         } else {
-            this.userName = this.$store.getters.userName;
-            this.userLoggedIn = true;
-         }
-      },
+      // getProfile() {
+      //    if (this.$store.getters.userName === "") {
+      //       axios
+      //          .post(
+      //             "/profile",
+      //             {},
+      //             {
+      //                headers: {
+      //                   Authorization:
+      //                      "Bearer " + localStorage.getItem("token"),
+      //                },
+      //             }
+      //          )
+      //          .then((res) => {
+      //             console.log(res);
+      //             this.userLoggedIn = true;
+      //             console.log(res.data.name);
+      //             this.userName = res.data.name;
+      //             this.$store.dispatch("setUserName", {
+      //                userName: this.userName,
+      //             });
+      //          })
+      //          .catch((err) => {
+      //             console.log(err);
+      //          });
+      //    } else {
+      //       this.userName = this.$store.getters.userName;
+      //       this.userLoggedIn = true;
+      //    }
+      // },
    },
 };
 </script>

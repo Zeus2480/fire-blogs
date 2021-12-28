@@ -34,8 +34,10 @@ import RecentPosts from "../components/recentpost/RecentPost.vue";
 import TheFooter from "../components/Footer/TheFooter.vue";
 
 import axios from "axios";
+import GetProfile from "../mixins/GetProfile"
 //  console.log(localStorage.getItem('token'));
 export default {
+   mixins:[GetProfile],
    computed: {
       recentBlogsList() {
          return this.$store.getters.fourPostsArray;
@@ -53,7 +55,7 @@ export default {
       console.log(localStorage.getItem("token"));
       //getting profile
       this.fourPost();
-      this.getProfile();
+      // this.getProfile();
       //getting post
    },
    watch: {
@@ -72,36 +74,36 @@ export default {
             });
          });
       },
-      getProfile() {
-         if (this.$store.getters.userName === "") {
-            axios
-               .post(
-                  "/profile",
-                  {},
-                  {
-                     headers: {
-                        Authorization:
-                           "Bearer " + localStorage.getItem("token"),
-                     },
-                  }
-               )
-               .then((res) => {
-                  console.log(res);
-                  this.userLoggedIn = true;
-                  console.log(res.data.name);
-                  this.userName = res.data.name;
-                  this.$store.dispatch("setUserName", {
-                     userName: this.userName,
-                  });
-               })
-               .catch((err) => {
-                  console.log(err);
-               });
-         } else {
-            this.userName = this.$store.getters.userName;
-            this.userLoggedIn = true;
-         }
-      },
+      // getProfile() {
+      //    if (this.$store.getters.userName === "") {
+      //       axios
+      //          .post(
+      //             "/profile",
+      //             {},
+      //             {
+      //                headers: {
+      //                   Authorization:
+      //                      "Bearer " + localStorage.getItem("token"),
+      //                },
+      //             }
+      //          )
+      //          .then((res) => {
+      //             console.log(res);
+      //             this.userLoggedIn = true;
+      //             console.log(res.data.name);
+      //             this.userName = res.data.name;
+      //             this.$store.dispatch("setUserName", {
+      //                userName: this.userName,
+      //             });
+      //          })
+      //          .catch((err) => {
+      //             console.log(err);
+      //          });
+      //    } else {
+      //       this.userName = this.$store.getters.userName;
+      //       this.userLoggedIn = true;
+      //    }
+      // },
    },
    name: "Home",
    components: {

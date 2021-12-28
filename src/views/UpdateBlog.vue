@@ -76,7 +76,9 @@
 import { VueEditor } from "vue2-editor";
 import axios from "axios";
 import PreviewImage from "../components/UpdateBlog/PreviewImage.vue"
+import GetProfile from "../mixins/GetProfile"
 export default {
+   mixins:[GetProfile],
    props: ["title", "content", "excerpt", "id",'image'],
    components: {
       VueEditor,
@@ -86,8 +88,7 @@ export default {
    data() {
       return {
          selectedFile: "",
-        userName:'',
-        userLoggedIn:null,
+        
         showModal:false,
          editorOption: {
             placeholder: "Type your post.....",
@@ -96,12 +97,7 @@ export default {
          },
       };
    },
-  created(){
-    this.getProfile();
-    
-    
-    console.log(this.selectedFile);
-  },
+  
    methods: {
       closeModal(value){
          // console.log(value)
@@ -112,36 +108,36 @@ export default {
          this.showModal=true;
       },
       
-      getProfile() {
-         if (this.$store.getters.userName === "") {
-            axios
-               .post(
-                  "/profile",
-                  {},
-                  {
-                     headers: {
-                        Authorization:
-                           "Bearer " + localStorage.getItem("token"),
-                     },
-                  }
-               )
-               .then((res) => {
-                  // console.log(res);
-                  this.userLoggedIn = true;
-                  // console.log(res.data.name);
-                  this.userName = res.data.name;
-                  this.$store.dispatch("setUserName", {
-                     userName: this.userName,
-                  });
-               })
-               .catch((err) => {
-                  console.log(err);
-               });
-         } else {
-            this.userName = this.$store.getters.userName;
-            this.userLoggedIn = true;
-         }
-      },
+      // getProfile() {
+      //    if (this.$store.getters.userName === "") {
+      //       axios
+      //          .post(
+      //             "/profile",
+      //             {},
+      //             {
+      //                headers: {
+      //                   Authorization:
+      //                      "Bearer " + localStorage.getItem("token"),
+      //                },
+      //             }
+      //          )
+      //          .then((res) => {
+      //             // console.log(res);
+      //             this.userLoggedIn = true;
+      //             // console.log(res.data.name);
+      //             this.userName = res.data.name;
+      //             this.$store.dispatch("setUserName", {
+      //                userName: this.userName,
+      //             });
+      //          })
+      //          .catch((err) => {
+      //             console.log(err);
+      //          });
+      //    } else {
+      //       this.userName = this.$store.getters.userName;
+      //       this.userLoggedIn = true;
+      //    }
+      // },
       onFileSelected(event) {
          console.log(event);
          console.log(event.target.files[0]);

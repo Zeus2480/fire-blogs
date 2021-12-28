@@ -38,22 +38,19 @@
 </template>
 <script>
 import axios from "axios";
-
+import GetProfile from "../mixins/GetProfile"
 
 export default {
-
+   mixins:[GetProfile],
   data() {
     return {
       id: "",
       blogsList: [],
       userBlogs: [],
-      userLoggedIn:false,
-      userName:''
     };
   },
   created() {
     //Getting user id
-    this.getProfile()
     axios
       .post(
         "/profile",
@@ -90,37 +87,37 @@ export default {
       this.userBlogs=this.userBlogs.filter(value=>value.id!==id)
       // console.log(this.userBlogs);
     },
-    getProfile() {
-         if (this.$store.getters.userName === "") {
-            axios
-               .post(
-                  "/profile",
-                  {},
-                  {
-                     headers: {
-                        Authorization:
-                           "Bearer " + localStorage.getItem("token"),
-                     },
-                  }
-               )
-               .then((res) => {
-                  console.log(res);
-                  this.userLoggedIn = true;
-                  console.log(res.data.name);
-                  this.userName = res.data.name;
-                  this.$store.dispatch("setUserName", {
-                     userName: this.userName,
-                  });
+   //  getProfile() {
+   //       if (this.$store.getters.userName === "") {
+   //          axios
+   //             .post(
+   //                "/profile",
+   //                {},
+   //                {
+   //                   headers: {
+   //                      Authorization:
+   //                         "Bearer " + localStorage.getItem("token"),
+   //                   },
+   //                }
+   //             )
+   //             .then((res) => {
+   //                console.log(res);
+   //                this.userLoggedIn = true;
+   //                console.log(res.data.name);
+   //                this.userName = res.data.name;
+   //                this.$store.dispatch("setUserName", {
+   //                   userName: this.userName,
+   //                });
                   
-               })
-               .catch((err) => {
-                  console.log(err);
-               });
-         } else {
-            this.userName = this.$store.getters.userName;
-            this.userLoggedIn = true;
-         }
-      },
+   //             })
+   //             .catch((err) => {
+   //                console.log(err);
+   //             });
+   //       } else {
+   //          this.userName = this.$store.getters.userName;
+   //          this.userLoggedIn = true;
+   //       }
+   //    },
   },
   // watch:{
   //   userBlogs(newValue){

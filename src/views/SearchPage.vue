@@ -27,8 +27,9 @@
 </template>
 <script>
 import axios from "axios";
-
+import GetProfile from "../mixins/GetProfile"
 export default {
+  mixins:[GetProfile],
     data(){
         return{
             searchResults:[],
@@ -41,39 +42,38 @@ export default {
   props: ["searchQuery"],
   created() {
     this.getSearchResults();
-    this.getProfile();
   },
   methods:{
-    getProfile() {
-         if (this.$store.getters.userName === "") {
-            axios
-               .post(
-                  "/profile",
-                  {},
-                  {
-                     headers: {
-                        Authorization:
-                           "Bearer " + localStorage.getItem("token"),
-                     },
-                  }
-               )
-               .then((res) => {
-                  // console.log(res);
-                  this.userLoggedIn = true;
-                  // console.log(res.data.name);
-                  this.userName = res.data.name;
-                  this.$store.dispatch("setUserName", {
-                     userName: this.userName,
-                  });
-               })
-               .catch((err) => {
-                  console.log(err);
-               });
-         } else {
-            this.userName = this.$store.getters.userName;
-            this.userLoggedIn = true;
-         }
-      },
+    // getProfile() {
+    //      if (this.$store.getters.userName === "") {
+    //         axios
+    //            .post(
+    //               "/profile",
+    //               {},
+    //               {
+    //                  headers: {
+    //                     Authorization:
+    //                        "Bearer " + localStorage.getItem("token"),
+    //                  },
+    //               }
+    //            )
+    //            .then((res) => {
+    //               // console.log(res);
+    //               this.userLoggedIn = true;
+    //               // console.log(res.data.name);
+    //               this.userName = res.data.name;
+    //               this.$store.dispatch("setUserName", {
+    //                  userName: this.userName,
+    //               });
+    //            })
+    //            .catch((err) => {
+    //               console.log(err);
+    //            });
+    //      } else {
+    //         this.userName = this.$store.getters.userName;
+    //         this.userLoggedIn = true;
+    //      }
+    //   },
     getSearchResults(){
       axios
       .post("/search", {
